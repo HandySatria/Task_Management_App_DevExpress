@@ -253,4 +253,43 @@ Partial Public Class XtraFormRequest
             End If
         End Using
     End Sub
+
+    Private Sub BarButtonItemNotApprove_ItemClick(sender As Object, e As ItemClickEventArgs) Handles BarButtonItemNotApprove.ItemClick
+        XtraFormNotApprove.LabelId.Text = TryCast(gridView.GetRow(gridView.FocusedRowHandle), DataRowView).Row.ItemArray(0)
+        XtraFormNotApprove.LabelTitle.Text = "DATA REVISI"
+        XtraFormNotApprove.LabelCatatan.Text = "ALASAN TIDAK APPROVE"
+        XtraFormNotApprove.ShowDialog()
+    End Sub
+
+    Private Async Function BarButtonItemApprove_ItemClickAsync(sender As Object, e As ItemClickEventArgs) As Task Handles BarButtonItemApprove.ItemClick
+        Select Case MsgBox("Apakah anda yakin akan mengkonfirmasi request ini ?", MsgBoxStyle.YesNo, "MESSAGE")
+            Case MsgBoxResult.Yes
+                Call Koneksi()
+                Cmd = New MySqlCommand("Update request set status=@status, user_upd=@user_upd, dtm_upd=@dtm_upd where request_id = '" & TryCast(gridView.GetRow(gridView.FocusedRowHandle), DataRowView).Row.ItemArray(0) & "'", Conn)
+                Cmd.Parameters.Add("@status", MySqlDbType.VarChar).Value = 8
+                Cmd.Parameters.Add("@user_upd", MySqlDbType.VarChar).Value = activeUserData.getUserName
+                Cmd.Parameters.Add("@dtm_upd", MySqlDbType.DateTime).Value = DateTime.Now
+                Cmd.ExecuteNonQuery()
+
+                'Call Koneksi()
+                'Cmd = New MySqlCommand("SELECT user_id, divisi_id, chat_id_telegram FROM user where divisi_id = '" & DataGridView1.CurrentRow.Cells(DataGridView1.ColumnCount - 2).Value & "'", Conn)
+                'Rd = Cmd.ExecuteReader
+                ''  Rd.Read()
+                'If Rd.HasRows Then
+                '    Do While Rd.Read
+                '        Dim chatIdTujuan As Long = Rd.Item("chat_id_telegram")
+                '        Dim pesan As String
+                '        pesan = "** TASK DENGAN ID : " & TryCast(gridView.GetRow(gridView.FocusedRowHandle), DataRowView).Row.ItemArray(0) & " TELAH TERKONFIRMASI MENJADI FINISH **" & Environment.NewLine & Environment.NewLine & Environment.NewLine &
+                '                "- Untuk Divisi : " & activeUserData.getDivisionName & Environment.NewLine & Environment.NewLine &
+                '                "- Subject : " & DataGridView1.CurrentRow.Cells(4).Value & Environment.NewLine & Environment.NewLine &
+                '                "- Deskripsi : " & DataGridView1.CurrentRow.Cells(5).Value & Environment.NewLine & Environment.NewLine &
+                '                "- Prioritas : " & DataGridView1.CurrentRow.Cells(7).Value & Environment.NewLine & Environment.NewLine &
+                '                "- User : " & activeUserData.getFullName & Environment.NewLine & Environment.NewLine
+                '        Await KirimPesanKeOrangLainAsync(botClient, chatIdTujuan, pesan, cts.Token)
+                '    Loop
+                'End If
+                MsgBox("Update Status Berhasil", vbOKOnly, "Success Message")
+                refreshData()
+        End Select
+    End Function
 End Class

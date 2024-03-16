@@ -3,8 +3,12 @@ Imports DevExpress.XtraBars
 Imports System.ComponentModel.DataAnnotations
 Imports MySql.Data.MySqlClient
 Imports DevExpress.XtraGrid.Views.Grid
+Imports DevExpress.XtraEditors.Repository
 
 Partial Public Class XtraFormTask
+    Dim divisiDictionary As New Dictionary(Of Integer, String)()
+    Dim statusDictionary As New Dictionary(Of Integer, String)()
+    Dim Condition As String
 
     Public Sub New()
         InitializeComponent()
@@ -46,31 +50,36 @@ Partial Public Class XtraFormTask
         '        End If
         '    End If
         'Else
-        '    Condition = " Where dFrom.divisi_id = " & activeUserData.getDivisionId
+        Condition = " Where dTo.divisi_id = " & activeUserData.getDivisionId
         'End If
 
-        'If TextBoxRequestId.Text IsNot "" Then
-        '    Condition = Condition & " and r.request_id = '" & TextBoxRequestId.Text & "'"
-        'End If
-        'If TextBoxSubject.Text IsNot "" Then
-        '    Condition = Condition & " and r.subject like '%" & TextBoxSubject.Text & "%'"
-        'End If
-        'If ComboBoxDivisi.SelectedItem IsNot Nothing Then
-        '    If DirectCast(ComboBoxDivisi.SelectedValue, Integer) >= 0 Then
-        '        Condition = Condition & " and dTo.divisi_id = '" & DirectCast(ComboBoxDivisi.SelectedValue, Integer) & "'"
-        '    End If
-        'End If
-        'If ComboBoxStatus.SelectedItem IsNot Nothing Then
-        '    If DirectCast(ComboBoxStatus.SelectedValue, Integer) >= 0 Then
-        '        Condition = Condition & " and rs.ref_status_id = '" & DirectCast(ComboBoxStatus.SelectedValue, Integer) & "'"
-        '    End If
-        'End If
-        'If DateEdit1.Text IsNot "" Then
-        '    Condition = Condition & " and date(r.dtm_crt) >= '" & DateEdit1.Text & "'"
-        'End If
-        'If DateEdit2.Text IsNot "" Then
-        '    Condition = Condition & " and date(r.dtm_crt) <= '" & DateEdit2.Text & "'"
-        'End If
+        If BarEditItemTaskId.EditValue IsNot Nothing Then
+            If BarEditItemTaskId.EditValue.ToString() IsNot "" Then
+                Condition = Condition & " and r.request_id = '" & BarEditItemTaskId.EditValue.ToString() & "'"
+            End If
+        End If
+        If BarEditItemSubjek.EditValue IsNot Nothing Then
+            If BarEditItemSubjek.EditValue.ToString() IsNot "" Then
+                Condition = Condition & " and r.subject like '%" & BarEditItemSubjek.EditValue.ToString() & "%'"
+            End If
+        End If
+        If BarEditItemDariDivisi.EditValue IsNot Nothing Then
+            If DirectCast(BarEditItemDariDivisi.EditValue, Integer) >= 0 Then
+                Condition = Condition & " and dFrom.divisi_id = '" & DirectCast(BarEditItemDariDivisi.EditValue, Integer) & "'"
+            End If
+        End If
+        If BarEditItemStatus.EditValue IsNot Nothing Then
+            If DirectCast(BarEditItemStatus.EditValue, Integer) >= 0 Then
+                Condition = Condition & " and rs.ref_status_id = '" & DirectCast(BarEditItemStatus.EditValue, Integer) & "'"
+            End If
+        End If
+        If BarEditItemTglRequest1.EditValue IsNot Nothing Then
+            Condition = Condition & " and date(r.dtm_crt) >= '" & Format(BarEditItemTglRequest1.EditValue, "yyyy-MM-dd") & "'"
+        End If
+        If BarEditItemTglRequest2.EditValue IsNot Nothing Then
+            Condition = Condition & " and date(r.dtm_crt) <= '" & Format(BarEditItemTglRequest2.EditValue, "yyyy-MM-dd") & "'"
+        End If
+
         Dim Cari_Data As String = "select r.request_id as request_id, r.request_no as request_no, r.subject as subject, r.description description, dTo.divisi_name as to_divisi, dFrom.divisi_name as from_divisi, dFrom.divisi_id as from_divisi_id,
                                  rp.prioritas_name as prioritas_name, rp.ref_prioritas_id as ref_prioritas_id, rs.status_name as status_name, rs.ref_status_id as ref_status_id, mc.id as cabang_id, mc.nama as cabang_name,
                                  r.user_crt as user_crt, r.user_upd as user_upd, r.dtm_crt as dtm_crt, r.dtm_upd as dtm_upd 
@@ -80,8 +89,7 @@ Partial Public Class XtraFormTask
                             left join ref_status rs on rs.ref_status_id = r.status
                             left join ref_prioritas rp on rp.ref_prioritas_id = r.prioritas
                             left join user u on u.user_id = r.user_id
-                            left join mcabang mc on mc.id = u.id_cabang
-                            Where dTo.divisi_id = " & activeUserData.getDivisionId
+                            left join mcabang mc on mc.id = u.id_cabang " & Condition
 
         Dim Cmd As New MySqlCommand(Cari_Data, Conn)
 
@@ -111,8 +119,68 @@ Partial Public Class XtraFormTask
         refreshData()
     End Sub
 
+    Sub setComboboxValue()
+        divisiDictionary.Clear()
+        BarEditItemDariDivisi.EditValue = Nothing
+        Call Koneksi()
+        Cmd = New MySqlCommand("SELECT divisi_id, divisi_name FROM divisi", Conn)
+        Rd = Cmd.ExecuteReader
+        divisiDictionary.Add(-1, "Pilih Divisi")
+
+        Do While Rd.Read
+            Dim divisiId As Integer = Rd.GetInt32("divisi_id")
+            Dim divisiName As String = Rd.GetString("divisi_name")
+
+            If activeUserData.getIsAdmin Then
+                divisiDictionary.Add(divisiId, divisiName)
+            Else
+                If divisiId <> activeUserData.getDivisionId Then
+                    divisiDictionary.Add(divisiId, divisiName)
+                End If
+            End If
+        Loop
+
+        Dim repositoryItemLookUpEditDivisi As New RepositoryItemLookUpEdit()
+        repositoryItemLookUpEditDivisi.DataSource = New BindingSource(divisiDictionary, Nothing)
+        repositoryItemLookUpEditDivisi.DisplayMember = "Value"
+        repositoryItemLookUpEditDivisi.ValueMember = "Key"
+
+
+        ' Mengatur RepositoryItemLookUpEdit ke BarEditItem
+        BarEditItemDariDivisi.Edit = repositoryItemLookUpEditDivisi
+        BarEditItemDariDivisi.EditValue = -1
+
+        statusDictionary.Clear()
+        BarEditItemStatus.EditValue = Nothing
+        Call Koneksi()
+        Cmd = New MySqlCommand("SELECT ref_status_id, status_name FROM ref_status", Conn)
+        Rd = Cmd.ExecuteReader
+        statusDictionary.Add(-1, "Pilih Status")
+
+        Do While Rd.Read
+            Dim statusId As Integer = Rd.GetInt32("ref_status_id")
+            Dim statusName As String = Rd.GetString("status_name")
+            If statusId = 3 Or statusId = 2 Then
+            Else
+                statusDictionary.Add(statusId, statusName)
+            End If
+        Loop
+
+        Dim repositoryItemLookUpEditStatus As New RepositoryItemLookUpEdit()
+        repositoryItemLookUpEditStatus.DataSource = New BindingSource(statusDictionary, Nothing)
+        repositoryItemLookUpEditStatus.DisplayMember = "Value"
+        repositoryItemLookUpEditStatus.ValueMember = "Key"
+
+
+        ' Mengatur RepositoryItemLookUpEdit ke BarEditItem
+        BarEditItemStatus.Edit = repositoryItemLookUpEditStatus
+        BarEditItemStatus.EditValue = -1
+
+    End Sub
+
     Private Sub XtraFormTask_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         refreshData()
+        setComboboxValue()
         BarButtonItemAccept.Visibility = BarItemVisibility.Never
         BarButtonItemReject.Visibility = BarItemVisibility.Never
         BarButtonItemOnProgress.Visibility = BarItemVisibility.Never
@@ -165,5 +233,37 @@ Partial Public Class XtraFormTask
                 End If
             End If
         End If
+    End Sub
+
+    Private Sub BarButtonItem1_ItemClick(sender As Object, e As ItemClickEventArgs) Handles BarButtonItem1.ItemClick
+        refreshData()
+    End Sub
+
+    Private Sub ribbonControl_Click(sender As Object, e As EventArgs) Handles ribbonControl.Click
+
+    End Sub
+
+    Private Sub BarButtonItemAccept_ItemClick(sender As Object, e As ItemClickEventArgs) Handles BarButtonItemAccept.ItemClick
+        XtraFormEstimasi.LabelId.Text = TryCast(gridView.GetRow(gridView.FocusedRowHandle), DataRowView).Row.ItemArray(0)
+        XtraFormEstimasi.ShowDialog()
+    End Sub
+
+    Private Sub BarButtonItemReject_ItemClick(sender As Object, e As ItemClickEventArgs) Handles BarButtonItemReject.ItemClick
+        XtraFormNotApprove.LabelId.Text = TryCast(gridView.GetRow(gridView.FocusedRowHandle), DataRowView).Row.ItemArray(0)
+        XtraFormNotApprove.LabelTitle.Text = "DATA REJECT"
+        XtraFormNotApprove.LabelCatatan.Text = "ALASAN REJECT"
+        XtraFormNotApprove.ShowDialog()
+    End Sub
+
+    Private Sub BarButtonItemOnProgress_ItemClick(sender As Object, e As ItemClickEventArgs) Handles BarButtonItemOnProgress.ItemClick
+        XtraFormRealisasi.LabelId.Text = TryCast(gridView.GetRow(gridView.FocusedRowHandle), DataRowView).Row.ItemArray(0)
+        XtraFormRealisasi.LabelTgl.Text = "TGL MULAI"
+        XtraFormRealisasi.ShowDialog()
+    End Sub
+
+    Private Sub BarButtonItemDone_ItemClick(sender As Object, e As ItemClickEventArgs) Handles BarButtonItemDone.ItemClick
+        XtraFormRealisasi.LabelId.Text = TryCast(gridView.GetRow(gridView.FocusedRowHandle), DataRowView).Row.ItemArray(0)
+        XtraFormRealisasi.LabelTgl.Text = "TGL SELESAI"
+        XtraFormRealisasi.ShowDialog()
     End Sub
 End Class

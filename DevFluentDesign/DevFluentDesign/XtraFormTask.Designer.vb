@@ -38,18 +38,19 @@ Partial Public Class XtraFormTask
         Me.BarButtonItemReject = New DevExpress.XtraBars.BarButtonItem()
         Me.BarButtonItemOnProgress = New DevExpress.XtraBars.BarButtonItem()
         Me.BarButtonItemDone = New DevExpress.XtraBars.BarButtonItem()
-        Me.BarEditItem1 = New DevExpress.XtraBars.BarEditItem()
+        Me.BarEditItemTaskId = New DevExpress.XtraBars.BarEditItem()
         Me.RepositoryItemTextEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
-        Me.BarEditItem2 = New DevExpress.XtraBars.BarEditItem()
+        Me.BarEditItemTglRequest1 = New DevExpress.XtraBars.BarEditItem()
         Me.RepositoryItemDateEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemDateEdit()
-        Me.BarEditItem3 = New DevExpress.XtraBars.BarEditItem()
+        Me.BarEditItemTglRequest2 = New DevExpress.XtraBars.BarEditItem()
         Me.RepositoryItemDateEdit2 = New DevExpress.XtraEditors.Repository.RepositoryItemDateEdit()
-        Me.BarEditItem4 = New DevExpress.XtraBars.BarEditItem()
+        Me.BarEditItemSubjek = New DevExpress.XtraBars.BarEditItem()
         Me.RepositoryItemTextEdit2 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
-        Me.BarEditItem5 = New DevExpress.XtraBars.BarEditItem()
+        Me.BarEditItemDariDivisi = New DevExpress.XtraBars.BarEditItem()
         Me.RepositoryItemComboBox1 = New DevExpress.XtraEditors.Repository.RepositoryItemComboBox()
-        Me.BarEditItem6 = New DevExpress.XtraBars.BarEditItem()
+        Me.BarEditItemStatus = New DevExpress.XtraBars.BarEditItem()
         Me.RepositoryItemComboBox2 = New DevExpress.XtraEditors.Repository.RepositoryItemComboBox()
+        Me.BarButtonItem1 = New DevExpress.XtraBars.BarButtonItem()
         Me.ribbonPage1 = New DevExpress.XtraBars.Ribbon.RibbonPage()
         Me.ribbonPageGroup1 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         Me.ribbonPageGroup2 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
@@ -62,7 +63,6 @@ Partial Public Class XtraFormTask
         Me.RibbonPageGroup6 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         Me.gridView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.gridControl1 = New DevExpress.XtraGrid.GridControl()
-        Me.BarButtonItem1 = New DevExpress.XtraBars.BarButtonItem()
         CType(Me.ribbonControl, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemDateEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -79,7 +79,7 @@ Partial Public Class XtraFormTask
         'ribbonControl
         '
         Me.ribbonControl.ExpandCollapseItem.Id = 0
-        Me.ribbonControl.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.ribbonControl.ExpandCollapseItem, Me.ribbonControl.SearchEditItem, Me.bbiPrintPreview, Me.bsiRecordsCount, Me.bbiNew, Me.bbiEdit, Me.bbiDelete, Me.bbiRefresh, Me.BarButtonItemDelete, Me.BarButtonItemView, Me.BarButtonItemAccept, Me.BarButtonItemReject, Me.BarButtonItemOnProgress, Me.BarButtonItemDone, Me.BarEditItem1, Me.BarEditItem2, Me.BarEditItem3, Me.BarEditItem4, Me.BarEditItem5, Me.BarEditItem6, Me.BarButtonItem1})
+        Me.ribbonControl.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.ribbonControl.ExpandCollapseItem, Me.ribbonControl.SearchEditItem, Me.bbiPrintPreview, Me.bsiRecordsCount, Me.bbiNew, Me.bbiEdit, Me.bbiDelete, Me.bbiRefresh, Me.BarButtonItemDelete, Me.BarButtonItemView, Me.BarButtonItemAccept, Me.BarButtonItemReject, Me.BarButtonItemOnProgress, Me.BarButtonItemDone, Me.BarEditItemTaskId, Me.BarEditItemTglRequest1, Me.BarEditItemTglRequest2, Me.BarEditItemSubjek, Me.BarEditItemDariDivisi, Me.BarEditItemStatus, Me.BarButtonItem1})
         Me.ribbonControl.Location = New System.Drawing.Point(0, 0)
         Me.ribbonControl.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.ribbonControl.MaxItemId = 33
@@ -190,24 +190,28 @@ Partial Public Class XtraFormTask
         Me.BarButtonItemDone.Name = "BarButtonItemDone"
         Me.BarButtonItemDone.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large
         '
-        'BarEditItem1
+        'BarEditItemTaskId
         '
-        Me.BarEditItem1.Caption = "Id Task        "
-        Me.BarEditItem1.Edit = Me.RepositoryItemTextEdit1
-        Me.BarEditItem1.Id = 26
-        Me.BarEditItem1.Name = "BarEditItem1"
+        Me.BarEditItemTaskId.AutoFillWidthInMenu = DevExpress.Utils.DefaultBoolean.[True]
+        Me.BarEditItemTaskId.Caption = "Id Task        "
+        Me.BarEditItemTaskId.Edit = Me.RepositoryItemTextEdit1
+        Me.BarEditItemTaskId.EditWidth = 100
+        Me.BarEditItemTaskId.Id = 26
+        Me.BarEditItemTaskId.Name = "BarEditItemTaskId"
         '
         'RepositoryItemTextEdit1
         '
         Me.RepositoryItemTextEdit1.AutoHeight = False
         Me.RepositoryItemTextEdit1.Name = "RepositoryItemTextEdit1"
         '
-        'BarEditItem2
+        'BarEditItemTglRequest1
         '
-        Me.BarEditItem2.Caption = "Tgl Task >= "
-        Me.BarEditItem2.Edit = Me.RepositoryItemDateEdit1
-        Me.BarEditItem2.Id = 27
-        Me.BarEditItem2.Name = "BarEditItem2"
+        Me.BarEditItemTglRequest1.AutoFillWidthInMenu = DevExpress.Utils.DefaultBoolean.[True]
+        Me.BarEditItemTglRequest1.Caption = "Tgl Task >= "
+        Me.BarEditItemTglRequest1.Edit = Me.RepositoryItemDateEdit1
+        Me.BarEditItemTglRequest1.EditWidth = 100
+        Me.BarEditItemTglRequest1.Id = 27
+        Me.BarEditItemTglRequest1.Name = "BarEditItemTglRequest1"
         '
         'RepositoryItemDateEdit1
         '
@@ -216,12 +220,14 @@ Partial Public Class XtraFormTask
         Me.RepositoryItemDateEdit1.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.RepositoryItemDateEdit1.Name = "RepositoryItemDateEdit1"
         '
-        'BarEditItem3
+        'BarEditItemTglRequest2
         '
-        Me.BarEditItem3.Caption = "Tgl Task <= "
-        Me.BarEditItem3.Edit = Me.RepositoryItemDateEdit2
-        Me.BarEditItem3.Id = 28
-        Me.BarEditItem3.Name = "BarEditItem3"
+        Me.BarEditItemTglRequest2.AutoFillWidthInMenu = DevExpress.Utils.DefaultBoolean.[True]
+        Me.BarEditItemTglRequest2.Caption = "Tgl Task <= "
+        Me.BarEditItemTglRequest2.Edit = Me.RepositoryItemDateEdit2
+        Me.BarEditItemTglRequest2.EditWidth = 100
+        Me.BarEditItemTglRequest2.Id = 28
+        Me.BarEditItemTglRequest2.Name = "BarEditItemTglRequest2"
         '
         'RepositoryItemDateEdit2
         '
@@ -230,24 +236,28 @@ Partial Public Class XtraFormTask
         Me.RepositoryItemDateEdit2.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.RepositoryItemDateEdit2.Name = "RepositoryItemDateEdit2"
         '
-        'BarEditItem4
+        'BarEditItemSubjek
         '
-        Me.BarEditItem4.Caption = "Subjek     "
-        Me.BarEditItem4.Edit = Me.RepositoryItemTextEdit2
-        Me.BarEditItem4.Id = 29
-        Me.BarEditItem4.Name = "BarEditItem4"
+        Me.BarEditItemSubjek.AutoFillWidthInMenu = DevExpress.Utils.DefaultBoolean.[True]
+        Me.BarEditItemSubjek.Caption = "Subjek     "
+        Me.BarEditItemSubjek.Edit = Me.RepositoryItemTextEdit2
+        Me.BarEditItemSubjek.EditWidth = 100
+        Me.BarEditItemSubjek.Id = 29
+        Me.BarEditItemSubjek.Name = "BarEditItemSubjek"
         '
         'RepositoryItemTextEdit2
         '
         Me.RepositoryItemTextEdit2.AutoHeight = False
         Me.RepositoryItemTextEdit2.Name = "RepositoryItemTextEdit2"
         '
-        'BarEditItem5
+        'BarEditItemDariDivisi
         '
-        Me.BarEditItem5.Caption = "Dari Divisi "
-        Me.BarEditItem5.Edit = Me.RepositoryItemComboBox1
-        Me.BarEditItem5.Id = 30
-        Me.BarEditItem5.Name = "BarEditItem5"
+        Me.BarEditItemDariDivisi.AutoFillWidthInMenu = DevExpress.Utils.DefaultBoolean.[True]
+        Me.BarEditItemDariDivisi.Caption = "Dari Divisi "
+        Me.BarEditItemDariDivisi.Edit = Me.RepositoryItemComboBox1
+        Me.BarEditItemDariDivisi.EditWidth = 100
+        Me.BarEditItemDariDivisi.Id = 30
+        Me.BarEditItemDariDivisi.Name = "BarEditItemDariDivisi"
         '
         'RepositoryItemComboBox1
         '
@@ -255,18 +265,29 @@ Partial Public Class XtraFormTask
         Me.RepositoryItemComboBox1.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.RepositoryItemComboBox1.Name = "RepositoryItemComboBox1"
         '
-        'BarEditItem6
+        'BarEditItemStatus
         '
-        Me.BarEditItem6.Caption = "Status      "
-        Me.BarEditItem6.Edit = Me.RepositoryItemComboBox2
-        Me.BarEditItem6.Id = 31
-        Me.BarEditItem6.Name = "BarEditItem6"
+        Me.BarEditItemStatus.AutoFillWidthInMenu = DevExpress.Utils.DefaultBoolean.[True]
+        Me.BarEditItemStatus.Caption = "Status      "
+        Me.BarEditItemStatus.Edit = Me.RepositoryItemComboBox2
+        Me.BarEditItemStatus.EditWidth = 100
+        Me.BarEditItemStatus.Id = 31
+        Me.BarEditItemStatus.Name = "BarEditItemStatus"
         '
         'RepositoryItemComboBox2
         '
         Me.RepositoryItemComboBox2.AutoHeight = False
         Me.RepositoryItemComboBox2.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.RepositoryItemComboBox2.Name = "RepositoryItemComboBox2"
+        '
+        'BarButtonItem1
+        '
+        Me.BarButtonItem1.Caption = "Search"
+        Me.BarButtonItem1.Id = 32
+        Me.BarButtonItem1.ImageOptions.Image = CType(resources.GetObject("BarButtonItem1.ImageOptions.Image"), System.Drawing.Image)
+        Me.BarButtonItem1.ImageOptions.LargeImage = CType(resources.GetObject("BarButtonItem1.ImageOptions.LargeImage"), System.Drawing.Image)
+        Me.BarButtonItem1.Name = "BarButtonItem1"
+        Me.BarButtonItem1.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large
         '
         'ribbonPage1
         '
@@ -305,12 +326,12 @@ Partial Public Class XtraFormTask
         '
         'RibbonPageGroup8
         '
-        Me.RibbonPageGroup8.ItemLinks.Add(Me.BarEditItem1)
-        Me.RibbonPageGroup8.ItemLinks.Add(Me.BarEditItem2)
-        Me.RibbonPageGroup8.ItemLinks.Add(Me.BarEditItem3)
-        Me.RibbonPageGroup8.ItemLinks.Add(Me.BarEditItem4)
-        Me.RibbonPageGroup8.ItemLinks.Add(Me.BarEditItem5)
-        Me.RibbonPageGroup8.ItemLinks.Add(Me.BarEditItem6)
+        Me.RibbonPageGroup8.ItemLinks.Add(Me.BarEditItemTaskId)
+        Me.RibbonPageGroup8.ItemLinks.Add(Me.BarEditItemTglRequest1)
+        Me.RibbonPageGroup8.ItemLinks.Add(Me.BarEditItemTglRequest2)
+        Me.RibbonPageGroup8.ItemLinks.Add(Me.BarEditItemSubjek)
+        Me.RibbonPageGroup8.ItemLinks.Add(Me.BarEditItemDariDivisi)
+        Me.RibbonPageGroup8.ItemLinks.Add(Me.BarEditItemStatus)
         Me.RibbonPageGroup8.ItemLinks.Add(Me.BarButtonItem1)
         Me.RibbonPageGroup8.Name = "RibbonPageGroup8"
         Me.RibbonPageGroup8.Text = "RibbonPageGroup8"
@@ -378,15 +399,6 @@ Partial Public Class XtraFormTask
         Me.gridControl1.TabIndex = 2
         Me.gridControl1.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.gridView})
         '
-        'BarButtonItem1
-        '
-        Me.BarButtonItem1.Caption = "Search"
-        Me.BarButtonItem1.Id = 32
-        Me.BarButtonItem1.ImageOptions.Image = CType(resources.GetObject("BarButtonItem1.ImageOptions.Image"), System.Drawing.Image)
-        Me.BarButtonItem1.ImageOptions.LargeImage = CType(resources.GetObject("BarButtonItem1.ImageOptions.LargeImage"), System.Drawing.Image)
-        Me.BarButtonItem1.Name = "BarButtonItem1"
-        Me.BarButtonItem1.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large
-        '
         'XtraFormTask
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
@@ -441,17 +453,17 @@ Partial Public Class XtraFormTask
     Friend WithEvents RibbonPageGroup8 As DevExpress.XtraBars.Ribbon.RibbonPageGroup
     Private WithEvents gridView As DevExpress.XtraGrid.Views.Grid.GridView
     Private WithEvents gridControl1 As DevExpress.XtraGrid.GridControl
-    Friend WithEvents BarEditItem1 As DevExpress.XtraBars.BarEditItem
+    Friend WithEvents BarEditItemTaskId As DevExpress.XtraBars.BarEditItem
     Friend WithEvents RepositoryItemTextEdit1 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
-    Friend WithEvents BarEditItem2 As DevExpress.XtraBars.BarEditItem
+    Friend WithEvents BarEditItemTglRequest1 As DevExpress.XtraBars.BarEditItem
     Friend WithEvents RepositoryItemDateEdit1 As DevExpress.XtraEditors.Repository.RepositoryItemDateEdit
-    Friend WithEvents BarEditItem3 As DevExpress.XtraBars.BarEditItem
+    Friend WithEvents BarEditItemTglRequest2 As DevExpress.XtraBars.BarEditItem
     Friend WithEvents RepositoryItemDateEdit2 As DevExpress.XtraEditors.Repository.RepositoryItemDateEdit
-    Friend WithEvents BarEditItem4 As DevExpress.XtraBars.BarEditItem
+    Friend WithEvents BarEditItemSubjek As DevExpress.XtraBars.BarEditItem
     Friend WithEvents RepositoryItemTextEdit2 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
-    Friend WithEvents BarEditItem5 As DevExpress.XtraBars.BarEditItem
+    Friend WithEvents BarEditItemDariDivisi As DevExpress.XtraBars.BarEditItem
     Friend WithEvents RepositoryItemComboBox1 As DevExpress.XtraEditors.Repository.RepositoryItemComboBox
-    Friend WithEvents BarEditItem6 As DevExpress.XtraBars.BarEditItem
+    Friend WithEvents BarEditItemStatus As DevExpress.XtraBars.BarEditItem
     Friend WithEvents RepositoryItemComboBox2 As DevExpress.XtraEditors.Repository.RepositoryItemComboBox
     Friend WithEvents BarButtonItem1 As DevExpress.XtraBars.BarButtonItem
 End Class

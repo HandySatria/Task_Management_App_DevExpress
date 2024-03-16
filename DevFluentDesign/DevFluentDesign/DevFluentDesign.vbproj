@@ -171,10 +171,28 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="XtraFormEstimasi.Designer.vb">
+      <DependentUpon>XtraFormEstimasi.vb</DependentUpon>
+    </Compile>
+    <Compile Include="XtraFormEstimasi.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="XtraFormAddRequest.Designer.vb">
       <DependentUpon>XtraFormAddRequest.vb</DependentUpon>
     </Compile>
     <Compile Include="XtraFormAddRequest.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="XtraFormNotApprove.Designer.vb">
+      <DependentUpon>XtraFormNotApprove.vb</DependentUpon>
+    </Compile>
+    <Compile Include="XtraFormNotApprove.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="XtraFormRealisasi.Designer.vb">
+      <DependentUpon>XtraFormRealisasi.vb</DependentUpon>
+    </Compile>
+    <Compile Include="XtraFormRealisasi.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="XtraFormUser.Designer.vb">
@@ -225,11 +243,20 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="XtraFormEstimasi.resx">
+      <DependentUpon>XtraFormEstimasi.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="XtraFormAddRequest.resx">
       <DependentUpon>XtraFormAddRequest.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="XtraFormDivisi.resx">
       <DependentUpon>XtraFormDivisi.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XtraFormNotApprove.resx">
+      <DependentUpon>XtraFormNotApprove.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XtraFormRealisasi.resx">
+      <DependentUpon>XtraFormRealisasi.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="XtraFormTask.resx">
       <DependentUpon>XtraFormTask.vb</DependentUpon>
