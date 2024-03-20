@@ -329,10 +329,9 @@ Partial Public Class XtraFormRequest
         '
         'BarButtonItem4
         '
-        Me.BarButtonItem4.Caption = "Delete"
+        Me.BarButtonItem4.Caption = "Cancel"
         Me.BarButtonItem4.Id = 36
-        Me.BarButtonItem4.ImageOptions.Image = CType(resources.GetObject("BarButtonItem4.ImageOptions.Image"), System.Drawing.Image)
-        Me.BarButtonItem4.ImageOptions.LargeImage = CType(resources.GetObject("BarButtonItem4.ImageOptions.LargeImage"), System.Drawing.Image)
+        Me.BarButtonItem4.ImageOptions.SvgImage = CType(resources.GetObject("BarButtonItem4.ImageOptions.SvgImage"), DevExpress.Utils.Svg.SvgImage)
         Me.BarButtonItem4.Name = "BarButtonItem4"
         Me.BarButtonItem4.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large
         '

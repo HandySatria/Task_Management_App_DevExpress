@@ -55,7 +55,7 @@ Partial Public Class XtraFormRequest
         '        End If
         '    End If
         'Else
-        Condition = " Where dFrom.divisi_id = " & activeUserData.getDivisionId
+        Condition = " where r.is_cancel = 0 and dFrom.divisi_id = " & activeUserData.getDivisionId
         'End If
 
         If BarEditItemPrioritas.EditValue IsNot Nothing Then
@@ -408,7 +408,7 @@ Partial Public Class XtraFormRequest
         'f.LabelPriority.ForeColor = TryCast(gridView.GetRow(gridView.FocusedRowHandle), DataRowView).Row.ItemArray(7)
         FluentDesignForm1.showForm(f)
     End Sub
-    Sub hapusData()
+    Sub cancelData()
         Dim rowView As DataRowView = TryCast(gridView.GetRow(gridView.FocusedRowHandle), DataRowView)
         Call Koneksi()
         Cmd = New MySqlCommand("delete from request where request_id = '" & TryCast(gridView.GetRow(gridView.FocusedRowHandle), DataRowView).Row.ItemArray(0) & "'", Conn)
@@ -418,10 +418,17 @@ Partial Public Class XtraFormRequest
     End Sub
     Private Sub BarButtonItem4_ItemClick(sender As Object, e As ItemClickEventArgs) Handles BarButtonItem4.ItemClick
         Dim rowView As DataRowView = TryCast(gridView.GetRow(gridView.FocusedRowHandle), DataRowView)
-
-        Select Case MsgBox("Apakah anda yakin ingin menghapus Request " & rowView("subject").ToString() & " ?", MsgBoxStyle.YesNo, "MESSAGE")
+        Select Case MsgBox("Apakah anda yakin akan MEMBATALKAN request ini " & rowView("subject").ToString() & " ?", MsgBoxStyle.YesNo, "MESSAGE")
             Case MsgBoxResult.Yes
-                hapusData()
+                Call Koneksi()
+                Cmd = New MySqlCommand("Update request set is_cancel=@is_cancel, user_upd=@user_upd, dtm_upd=@dtm_upd where request_id = '" & TryCast(gridView.GetRow(gridView.FocusedRowHandle), DataRowView).Row.ItemArray(0) & "'", Conn)
+                Cmd.Parameters.Add("@is_cancel", MySqlDbType.Bit).Value = True
+                Cmd.Parameters.Add("@user_upd", MySqlDbType.VarChar).Value = activeUserData.getUserName
+                Cmd.Parameters.Add("@dtm_upd", MySqlDbType.DateTime).Value = DateTime.Now
+                Cmd.ExecuteNonQuery()
+
+                MsgBox("Cancel Request Berhasil", vbOKOnly, "Success Message")
+                refreshData()
         End Select
     End Sub
 End Class

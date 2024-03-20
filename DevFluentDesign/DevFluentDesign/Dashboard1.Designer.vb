@@ -23,17 +23,17 @@
         ''' the contents of this method with the code editor.
         ''' </summary>
         Private Sub InitializeComponent()
+            Dim Dimension1 As DevExpress.DashboardCommon.Dimension = New DevExpress.DashboardCommon.Dimension()
+            Dim Measure1 As DevExpress.DashboardCommon.Measure = New DevExpress.DashboardCommon.Measure()
+            Dim ChartPane1 As DevExpress.DashboardCommon.ChartPane = New DevExpress.DashboardCommon.ChartPane()
+            Dim SimpleSeries1 As DevExpress.DashboardCommon.SimpleSeries = New DevExpress.DashboardCommon.SimpleSeries()
             Dim CustomSqlQuery1 As DevExpress.DataAccess.Sql.CustomSqlQuery = New DevExpress.DataAccess.Sql.CustomSqlQuery()
             Dim QueryParameter1 As DevExpress.DataAccess.Sql.QueryParameter = New DevExpress.DataAccess.Sql.QueryParameter()
             Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Dashboard1))
-            Dim Dimension1 As DevExpress.DashboardCommon.Dimension = New DevExpress.DashboardCommon.Dimension()
-            Dim Measure1 As DevExpress.DashboardCommon.Measure = New DevExpress.DashboardCommon.Measure()
             Dim Dimension2 As DevExpress.DashboardCommon.Dimension = New DevExpress.DashboardCommon.Dimension()
             Dim Measure2 As DevExpress.DashboardCommon.Measure = New DevExpress.DashboardCommon.Measure()
             Dim Dimension3 As DevExpress.DashboardCommon.Dimension = New DevExpress.DashboardCommon.Dimension()
             Dim Measure3 As DevExpress.DashboardCommon.Measure = New DevExpress.DashboardCommon.Measure()
-            Dim ChartPane1 As DevExpress.DashboardCommon.ChartPane = New DevExpress.DashboardCommon.ChartPane()
-            Dim SimpleSeries1 As DevExpress.DashboardCommon.SimpleSeries = New DevExpress.DashboardCommon.SimpleSeries()
             Dim Dimension4 As DevExpress.DashboardCommon.Dimension = New DevExpress.DashboardCommon.Dimension()
             Dim Measure4 As DevExpress.DashboardCommon.Measure = New DevExpress.DashboardCommon.Measure()
             Dim ChartPane2 As DevExpress.DashboardCommon.ChartPane = New DevExpress.DashboardCommon.ChartPane()
@@ -46,25 +46,55 @@
             Dim DashboardLayoutItem3 As DevExpress.DashboardCommon.DashboardLayoutItem = New DevExpress.DashboardCommon.DashboardLayoutItem()
             Dim DashboardLayoutItem4 As DevExpress.DashboardCommon.DashboardLayoutItem = New DevExpress.DashboardCommon.DashboardLayoutItem()
             Dim DashboardParameter1 As DevExpress.DashboardCommon.DashboardParameter = New DevExpress.DashboardCommon.DashboardParameter()
+            Me.ChartDashboardItem1 = New DevExpress.DashboardCommon.ChartDashboardItem()
             Me.DashboardSqlDataSource1 = New DevExpress.DashboardCommon.DashboardSqlDataSource()
             Me.PieDashboardItem1 = New DevExpress.DashboardCommon.PieDashboardItem()
             Me.PieDashboardItem2 = New DevExpress.DashboardCommon.PieDashboardItem()
-            Me.ChartDashboardItem1 = New DevExpress.DashboardCommon.ChartDashboardItem()
             Me.ChartDashboardItem2 = New DevExpress.DashboardCommon.ChartDashboardItem()
-            CType(Me.DashboardSqlDataSource1, System.ComponentModel.ISupportInitialize).BeginInit()
-            CType(Me.PieDashboardItem1, System.ComponentModel.ISupportInitialize).BeginInit()
+            CType(Me.ChartDashboardItem1, System.ComponentModel.ISupportInitialize).BeginInit()
             CType(Dimension1, System.ComponentModel.ISupportInitialize).BeginInit()
             CType(Measure1, System.ComponentModel.ISupportInitialize).BeginInit()
-            CType(Me.PieDashboardItem2, System.ComponentModel.ISupportInitialize).BeginInit()
+            CType(Me.DashboardSqlDataSource1, System.ComponentModel.ISupportInitialize).BeginInit()
+            CType(Me.PieDashboardItem1, System.ComponentModel.ISupportInitialize).BeginInit()
             CType(Dimension2, System.ComponentModel.ISupportInitialize).BeginInit()
             CType(Measure2, System.ComponentModel.ISupportInitialize).BeginInit()
-            CType(Me.ChartDashboardItem1, System.ComponentModel.ISupportInitialize).BeginInit()
+            CType(Me.PieDashboardItem2, System.ComponentModel.ISupportInitialize).BeginInit()
             CType(Dimension3, System.ComponentModel.ISupportInitialize).BeginInit()
             CType(Measure3, System.ComponentModel.ISupportInitialize).BeginInit()
             CType(Me.ChartDashboardItem2, System.ComponentModel.ISupportInitialize).BeginInit()
             CType(Dimension4, System.ComponentModel.ISupportInitialize).BeginInit()
             CType(Measure4, System.ComponentModel.ISupportInitialize).BeginInit()
             CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
+            '
+            'ChartDashboardItem1
+            '
+            Me.ChartDashboardItem1.AxisX.TitleVisible = False
+            Me.ChartDashboardItem1.ComponentName = "ChartDashboardItem1"
+            Dimension1.DataMember = "dtm_crt"
+            Dimension1.DateTimeGroupInterval = DevExpress.DashboardCommon.DateTimeGroupInterval.Month
+            Dimension1.Name = "Month"
+            Measure1.DataMember = "divisi_1_divisi_name"
+            Measure1.Name = "Banyak Request (month)"
+            Measure1.SummaryType = DevExpress.DashboardCommon.SummaryType.Count
+            Me.ChartDashboardItem1.DataItemRepository.Clear()
+            Me.ChartDashboardItem1.DataItemRepository.Add(Dimension1, "DataItem0")
+            Me.ChartDashboardItem1.DataItemRepository.Add(Measure1, "DataItem1")
+            Me.ChartDashboardItem1.DataMember = "Query"
+            Me.ChartDashboardItem1.DataSource = Me.DashboardSqlDataSource1
+            Me.ChartDashboardItem1.InteractivityOptions.IgnoreMasterFilters = False
+            Me.ChartDashboardItem1.Name = "Chart 1"
+            ChartPane1.Name = "Pane 1"
+            ChartPane1.PrimaryAxisY.AlwaysShowZeroLevel = True
+            ChartPane1.PrimaryAxisY.ShowGridLines = True
+            ChartPane1.PrimaryAxisY.TitleVisible = True
+            ChartPane1.SecondaryAxisY.AlwaysShowZeroLevel = True
+            ChartPane1.SecondaryAxisY.ShowGridLines = False
+            ChartPane1.SecondaryAxisY.TitleVisible = True
+            SimpleSeries1.AddDataItem("Value", Measure1)
+            ChartPane1.Series.AddRange(New DevExpress.DashboardCommon.ChartSeries() {SimpleSeries1})
+            Me.ChartDashboardItem1.Panes.AddRange(New DevExpress.DashboardCommon.ChartPane() {ChartPane1})
+            Me.ChartDashboardItem1.SeriesDimensions.AddRange(New DevExpress.DashboardCommon.Dimension() {Dimension1})
+            Me.ChartDashboardItem1.ShowCaption = True
             '
             'DashboardSqlDataSource1
             '
@@ -82,72 +112,42 @@
             '
             'PieDashboardItem1
             '
-            Dimension1.DataMember = "prioritas_name"
-            Dimension1.Name = "Prioritas"
-            Me.PieDashboardItem1.Arguments.AddRange(New DevExpress.DashboardCommon.Dimension() {Dimension1})
+            Dimension2.DataMember = "prioritas_name"
+            Dimension2.Name = "Prioritas"
+            Me.PieDashboardItem1.Arguments.AddRange(New DevExpress.DashboardCommon.Dimension() {Dimension2})
             Me.PieDashboardItem1.ComponentName = "PieDashboardItem1"
-            Measure1.DataMember = "prioritas_name"
-            Measure1.Name = "Prioritas"
-            Measure1.SummaryType = DevExpress.DashboardCommon.SummaryType.Count
+            Measure2.DataMember = "prioritas_name"
+            Measure2.Name = "Prioritas"
+            Measure2.SummaryType = DevExpress.DashboardCommon.SummaryType.Count
             Me.PieDashboardItem1.DataItemRepository.Clear()
-            Me.PieDashboardItem1.DataItemRepository.Add(Measure1, "DataItem0")
-            Me.PieDashboardItem1.DataItemRepository.Add(Dimension1, "DataItem2")
+            Me.PieDashboardItem1.DataItemRepository.Add(Measure2, "DataItem0")
+            Me.PieDashboardItem1.DataItemRepository.Add(Dimension2, "DataItem2")
             Me.PieDashboardItem1.DataMember = "Query"
             Me.PieDashboardItem1.DataSource = Me.DashboardSqlDataSource1
             Me.PieDashboardItem1.InteractivityOptions.IgnoreMasterFilters = False
             Me.PieDashboardItem1.Name = "Pies 1"
             Me.PieDashboardItem1.ShowCaption = True
-            Me.PieDashboardItem1.Values.AddRange(New DevExpress.DashboardCommon.Measure() {Measure1})
+            Me.PieDashboardItem1.Values.AddRange(New DevExpress.DashboardCommon.Measure() {Measure2})
             '
             'PieDashboardItem2
             '
-            Dimension2.DataMember = "status_name"
-            Dimension2.Name = "Status"
-            Dimension2.SortOrder = DevExpress.DashboardCommon.DimensionSortOrder.Descending
-            Me.PieDashboardItem2.Arguments.AddRange(New DevExpress.DashboardCommon.Dimension() {Dimension2})
+            Dimension3.DataMember = "status_name"
+            Dimension3.Name = "Status"
+            Dimension3.SortOrder = DevExpress.DashboardCommon.DimensionSortOrder.Descending
+            Me.PieDashboardItem2.Arguments.AddRange(New DevExpress.DashboardCommon.Dimension() {Dimension3})
             Me.PieDashboardItem2.ComponentName = "PieDashboardItem2"
-            Measure2.DataMember = "status_name"
-            Measure2.Name = "Status"
-            Measure2.SummaryType = DevExpress.DashboardCommon.SummaryType.Count
+            Measure3.DataMember = "status_name"
+            Measure3.Name = "Status"
+            Measure3.SummaryType = DevExpress.DashboardCommon.SummaryType.Count
             Me.PieDashboardItem2.DataItemRepository.Clear()
-            Me.PieDashboardItem2.DataItemRepository.Add(Measure2, "DataItem0")
-            Me.PieDashboardItem2.DataItemRepository.Add(Dimension2, "DataItem2")
+            Me.PieDashboardItem2.DataItemRepository.Add(Measure3, "DataItem0")
+            Me.PieDashboardItem2.DataItemRepository.Add(Dimension3, "DataItem2")
             Me.PieDashboardItem2.DataMember = "Query"
             Me.PieDashboardItem2.DataSource = Me.DashboardSqlDataSource1
             Me.PieDashboardItem2.InteractivityOptions.IgnoreMasterFilters = False
             Me.PieDashboardItem2.Name = "Pies 2"
             Me.PieDashboardItem2.ShowCaption = True
-            Me.PieDashboardItem2.Values.AddRange(New DevExpress.DashboardCommon.Measure() {Measure2})
-            '
-            'ChartDashboardItem1
-            '
-            Me.ChartDashboardItem1.AxisX.TitleVisible = False
-            Me.ChartDashboardItem1.ComponentName = "ChartDashboardItem1"
-            Dimension3.DataMember = "dtm_crt"
-            Dimension3.DateTimeGroupInterval = DevExpress.DashboardCommon.DateTimeGroupInterval.Month
-            Dimension3.Name = "Month"
-            Measure3.DataMember = "divisi_1_divisi_name"
-            Measure3.Name = "Banyak Divisi (month)"
-            Measure3.SummaryType = DevExpress.DashboardCommon.SummaryType.Count
-            Me.ChartDashboardItem1.DataItemRepository.Clear()
-            Me.ChartDashboardItem1.DataItemRepository.Add(Dimension3, "DataItem0")
-            Me.ChartDashboardItem1.DataItemRepository.Add(Measure3, "DataItem1")
-            Me.ChartDashboardItem1.DataMember = "Query"
-            Me.ChartDashboardItem1.DataSource = Me.DashboardSqlDataSource1
-            Me.ChartDashboardItem1.InteractivityOptions.IgnoreMasterFilters = False
-            Me.ChartDashboardItem1.Name = "Chart 1"
-            ChartPane1.Name = "Pane 1"
-            ChartPane1.PrimaryAxisY.AlwaysShowZeroLevel = True
-            ChartPane1.PrimaryAxisY.ShowGridLines = True
-            ChartPane1.PrimaryAxisY.TitleVisible = True
-            ChartPane1.SecondaryAxisY.AlwaysShowZeroLevel = True
-            ChartPane1.SecondaryAxisY.ShowGridLines = False
-            ChartPane1.SecondaryAxisY.TitleVisible = True
-            SimpleSeries1.AddDataItem("Value", Measure3)
-            ChartPane1.Series.AddRange(New DevExpress.DashboardCommon.ChartSeries() {SimpleSeries1})
-            Me.ChartDashboardItem1.Panes.AddRange(New DevExpress.DashboardCommon.ChartPane() {ChartPane1})
-            Me.ChartDashboardItem1.SeriesDimensions.AddRange(New DevExpress.DashboardCommon.Dimension() {Dimension3})
-            Me.ChartDashboardItem1.ShowCaption = True
+            Me.PieDashboardItem2.Values.AddRange(New DevExpress.DashboardCommon.Measure() {Measure3})
             '
             'ChartDashboardItem2
             '
@@ -181,7 +181,6 @@
             '
             'Dashboard1
             '
-            Me.CustomProperties.SetValue(Nothing, Nothing)
             Me.DataSources.AddRange(New DevExpress.DashboardCommon.IDashboardDataSource() {Me.DashboardSqlDataSource1})
             Me.Items.AddRange(New DevExpress.DashboardCommon.DashboardItem() {Me.PieDashboardItem1, Me.PieDashboardItem2, Me.ChartDashboardItem1, Me.ChartDashboardItem2})
             DashboardLayoutItem1.DashboardItem = Me.ChartDashboardItem1
@@ -208,16 +207,16 @@
             DashboardParameter1.Value = 0
             Me.Parameters.AddRange(New DevExpress.DashboardCommon.DashboardParameter() {DashboardParameter1})
             Me.Title.Text = "Dashboard"
-            CType(Me.DashboardSqlDataSource1, System.ComponentModel.ISupportInitialize).EndInit()
             CType(Dimension1, System.ComponentModel.ISupportInitialize).EndInit()
             CType(Measure1, System.ComponentModel.ISupportInitialize).EndInit()
-            CType(Me.PieDashboardItem1, System.ComponentModel.ISupportInitialize).EndInit()
+            CType(Me.ChartDashboardItem1, System.ComponentModel.ISupportInitialize).EndInit()
+            CType(Me.DashboardSqlDataSource1, System.ComponentModel.ISupportInitialize).EndInit()
             CType(Dimension2, System.ComponentModel.ISupportInitialize).EndInit()
             CType(Measure2, System.ComponentModel.ISupportInitialize).EndInit()
-            CType(Me.PieDashboardItem2, System.ComponentModel.ISupportInitialize).EndInit()
+            CType(Me.PieDashboardItem1, System.ComponentModel.ISupportInitialize).EndInit()
             CType(Dimension3, System.ComponentModel.ISupportInitialize).EndInit()
             CType(Measure3, System.ComponentModel.ISupportInitialize).EndInit()
-            CType(Me.ChartDashboardItem1, System.ComponentModel.ISupportInitialize).EndInit()
+            CType(Me.PieDashboardItem2, System.ComponentModel.ISupportInitialize).EndInit()
             CType(Dimension4, System.ComponentModel.ISupportInitialize).EndInit()
             CType(Measure4, System.ComponentModel.ISupportInitialize).EndInit()
             CType(Me.ChartDashboardItem2, System.ComponentModel.ISupportInitialize).EndInit()

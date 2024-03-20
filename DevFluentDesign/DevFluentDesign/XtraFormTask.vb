@@ -51,7 +51,7 @@ Partial Public Class XtraFormTask
         '        End If
         '    End If
         'Else
-        Condition = " Where dTo.divisi_id = " & activeUserData.getDivisionId
+        Condition = " Where r.is_cancel = 0 and dTo.divisi_id = " & activeUserData.getDivisionId
         'End If
 
         If BarEditItemPrioritas.EditValue IsNot Nothing Then
