@@ -59,13 +59,13 @@ Partial Class FluentDesignForm1
         Me.BarHeaderItem3 = New DevExpress.XtraBars.BarHeaderItem()
         Me.BarButtonItem2 = New DevExpress.XtraBars.BarButtonItem()
         Me.BarStaticItemLogin = New DevExpress.XtraBars.BarStaticItem()
+        Me.BarButtonItemLogin = New DevExpress.XtraBars.BarButtonItem()
+        Me.BarHeaderItem4 = New DevExpress.XtraBars.BarHeaderItem()
         Me.FluentFormDefaultManager1 = New DevExpress.XtraBars.FluentDesignSystem.FluentFormDefaultManager(Me.components)
         Me.AccordionControlElement8 = New DevExpress.XtraBars.Navigation.AccordionControlElement()
         Me.AccordionControlElement5 = New DevExpress.XtraBars.Navigation.AccordionControlElement()
         Me.AccordionControlElement4 = New DevExpress.XtraBars.Navigation.AccordionControlElement()
         Me.AccordionControlElement3 = New DevExpress.XtraBars.Navigation.AccordionControlElement()
-        Me.BarButtonItemLogin = New DevExpress.XtraBars.BarButtonItem()
-        Me.BarHeaderItem4 = New DevExpress.XtraBars.BarHeaderItem()
         CType(Me.AccordionControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.FluentDesignFormControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemHypertextLabel1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -330,10 +330,26 @@ Partial Class FluentDesignForm1
         Me.BarStaticItemLogin.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right
         Me.BarStaticItemLogin.Caption = "LOGIN"
         Me.BarStaticItemLogin.Id = 13
-        Me.BarStaticItemLogin.ImageOptions.SvgImage = CType(resources.GetObject("BarStaticItem1.ImageOptions.SvgImage"), DevExpress.Utils.Svg.SvgImage)
+        Me.BarStaticItemLogin.ImageOptions.SvgImage = CType(resources.GetObject("BarStaticItemLogin.ImageOptions.SvgImage"), DevExpress.Utils.Svg.SvgImage)
         Me.BarStaticItemLogin.MaxWidth = 200
         Me.BarStaticItemLogin.Name = "BarStaticItemLogin"
         Me.BarStaticItemLogin.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
+        '
+        'BarButtonItemLogin
+        '
+        Me.BarButtonItemLogin.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right
+        Me.BarButtonItemLogin.Caption = "LOGIN"
+        Me.BarButtonItemLogin.Id = 14
+        Me.BarButtonItemLogin.ImageOptions.SvgImage = CType(resources.GetObject("BarButtonItemLogin.ImageOptions.SvgImage"), DevExpress.Utils.Svg.SvgImage)
+        Me.BarButtonItemLogin.Name = "BarButtonItemLogin"
+        Me.BarButtonItemLogin.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
+        '
+        'BarHeaderItem4
+        '
+        Me.BarHeaderItem4.Caption = "LOGIN"
+        Me.BarHeaderItem4.Id = 15
+        Me.BarHeaderItem4.ImageOptions.SvgImage = CType(resources.GetObject("BarHeaderItem4.ImageOptions.SvgImage"), DevExpress.Utils.Svg.SvgImage)
+        Me.BarHeaderItem4.Name = "BarHeaderItem4"
         '
         'FluentFormDefaultManager1
         '
@@ -369,22 +385,6 @@ Partial Class FluentDesignForm1
         Me.AccordionControlElement3.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item
         Me.AccordionControlElement3.Text = "Element3"
         Me.AccordionControlElement3.Visible = False
-        '
-        'BarButtonItemLogin
-        '
-        Me.BarButtonItemLogin.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right
-        Me.BarButtonItemLogin.Caption = "LOGIN"
-        Me.BarButtonItemLogin.Id = 14
-        Me.BarButtonItemLogin.ImageOptions.SvgImage = CType(resources.GetObject("BarButtonItem3.ImageOptions.SvgImage"), DevExpress.Utils.Svg.SvgImage)
-        Me.BarButtonItemLogin.Name = "BarButtonItemLogin"
-        Me.BarButtonItemLogin.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
-        '
-        'BarHeaderItem4
-        '
-        Me.BarHeaderItem4.Caption = "LOGIN"
-        Me.BarHeaderItem4.Id = 15
-        Me.BarHeaderItem4.ImageOptions.SvgImage = CType(resources.GetObject("BarHeaderItem4.ImageOptions.SvgImage"), DevExpress.Utils.Svg.SvgImage)
-        Me.BarHeaderItem4.Name = "BarHeaderItem4"
         '
         'FluentDesignForm1
         '

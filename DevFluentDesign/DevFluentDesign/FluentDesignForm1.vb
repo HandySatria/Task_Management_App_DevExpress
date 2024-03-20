@@ -32,6 +32,7 @@
 
     Private Sub FluentDesignForm1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         AccordionControl1.Visible = False
+        showForm(FormLogo)
     End Sub
 
     Private Sub AccordionControlDashboard_Click(sender As Object, e As EventArgs) Handles AccordionControlDashboard.Click
@@ -74,6 +75,7 @@
                     'FormMasterUser.Close()
                     BarHeaderItem1.Caption = ""
                     AccordionControl1.Visible = False
+                    showForm(FormLogo)
                     BarButtonItemLogin.Caption = "LOGIN"
             End Select
         End If

@@ -179,6 +179,12 @@
     <Compile Include="FormLogin.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FormLogo.Designer.vb">
+      <DependentUpon>FormLogo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormLogo.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormRequestDetail.Designer.vb">
       <DependentUpon>FormRequestDetail.vb</DependentUpon>
     </Compile>
@@ -278,6 +284,9 @@
     <EmbeddedResource Include="FormLogin.resx">
       <DependentUpon>FormLogin.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormLogo.resx">
+      <DependentUpon>FormLogo.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormRequestDetail.resx">
       <DependentUpon>FormRequestDetail.vb</DependentUpon>
     </EmbeddedResource>
@@ -328,6 +337,30 @@
     </None>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LaRitta-removebg-preview.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\quel-est-le-role-du-manager-management-et-sa-hierarchie-Reactive-Executive.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\un-manager-de-transition-pour-exercer-les-fonction-de-management-1-1024x576.jpeg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Untitled design.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Untitled design %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Untitled design %282%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Untitled design %283%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Untitled design %284%29.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
