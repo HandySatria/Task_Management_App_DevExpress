@@ -1,6 +1,5 @@
 ﻿Imports MySql.Data.MySqlClient
-Public Class XtraFormLogin
-
+Public Class FormLogin
     'Sub KondisiTerbuka()
     '    FormMenu.RequestToolStripMenuItem.Visible = True
     '    FormMenu.TaskToolStripMenuItem.Visible = True
@@ -78,13 +77,5 @@ Public Class XtraFormLogin
         If e.KeyChar = Chr(13) Then
             login()
         End If
-    End Sub
-
-    Private Sub TextEditNama_EditValueChanged(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub TextEditPassword_EditValueChanged(sender As Object, e As EventArgs) Handles TextEditPassword.EditValueChanged
-
     End Sub
 End Class

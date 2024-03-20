@@ -6,6 +6,8 @@ Imports DevExpress.XtraGrid.Views.Grid
 
 Partial Public Class XtraFormDivisi
 
+    Dim Condition As String = ""
+
     Public Sub New()
         InitializeComponent()
 
@@ -37,41 +39,16 @@ Partial Public Class XtraFormDivisi
     End Class
 
     Sub refreshData()
-        Call Koneksi()
-        'If activeUserData.getIsAdmin Then
-        '    Condition = " Where 1=1 "
-        '    If ComboBoxFromDivisi.SelectedItem IsNot Nothing Then
-        '        If DirectCast(ComboBoxFromDivisi.SelectedValue, Integer) >= 0 Then
-        '            Condition = Condition & " and dFrom.divisi_id = '" & DirectCast(ComboBoxFromDivisi.SelectedValue, Integer) & "'"
-        '        End If
-        '    End If
-        'Else
-        '    Condition = " Where dFrom.divisi_id = " & activeUserData.getDivisionId
-        'End If
+        Condition = "Where 1=1 "
+        If BarEditItemDivisiName.EditValue IsNot Nothing Then
+            If BarEditItemDivisiName.EditValue.ToString() IsNot "" Then
+                Condition = Condition & " and divisi_name like '%" & BarEditItemDivisiName.EditValue.ToString() & "%'"
+            End If
+        End If
 
-        'If TextBoxRequestId.Text IsNot "" Then
-        '    Condition = Condition & " and r.request_id = '" & TextBoxRequestId.Text & "'"
-        'End If
-        'If TextBoxSubject.Text IsNot "" Then
-        '    Condition = Condition & " and r.subject like '%" & TextBoxSubject.Text & "%'"
-        'End If
-        'If ComboBoxDivisi.SelectedItem IsNot Nothing Then
-        '    If DirectCast(ComboBoxDivisi.SelectedValue, Integer) >= 0 Then
-        '        Condition = Condition & " and dTo.divisi_id = '" & DirectCast(ComboBoxDivisi.SelectedValue, Integer) & "'"
-        '    End If
-        'End If
-        'If ComboBoxStatus.SelectedItem IsNot Nothing Then
-        '    If DirectCast(ComboBoxStatus.SelectedValue, Integer) >= 0 Then
-        '        Condition = Condition & " and rs.ref_status_id = '" & DirectCast(ComboBoxStatus.SelectedValue, Integer) & "'"
-        '    End If
-        'End If
-        'If DateEdit1.Text IsNot "" Then
-        '    Condition = Condition & " and date(r.dtm_crt) >= '" & DateEdit1.Text & "'"
-        'End If
-        'If DateEdit2.Text IsNot "" Then
-        '    Condition = Condition & " and date(r.dtm_crt) <= '" & DateEdit2.Text & "'"
-        'End If
-        Dim Cari_Data As String = "SELECT divisi_id, divisi_name, user_crt, user_upd, dtm_crt,dtm_upd FROM divisi"
+        Call Koneksi()
+
+        Dim Cari_Data As String = "SELECT divisi_id, divisi_name, user_crt, user_upd, dtm_crt,dtm_upd FROM divisi " & Condition
 
         Dim Cmd As New MySqlCommand(Cari_Data, Conn)
 
@@ -87,18 +64,82 @@ Partial Public Class XtraFormDivisi
 
         View.OptionsView.ColumnAutoWidth = False
 
-        'If View.Columns("request_no") IsNot Nothing Then
-        '    View.Columns("request_no").Caption = "Request No"
-        'End If
-        'If View.Columns("subject") IsNot Nothing Then
-        '    View.Columns("subject").Caption = "Subject"
-        'End If
+        View.Columns("divisi_id").Width = 50
+        View.Columns("divisi_name").Width = 200
+        View.Columns("user_crt").Width = 100
+        View.Columns("user_upd").Width = 100
+        View.Columns("dtm_crt").Width = 100
+        View.Columns("dtm_upd").Width = 100
+
+        View.Columns("divisi_id").Caption = "Id Divisi"
+        View.Columns("divisi_name").Caption = "Nama Divisi"
+        View.Columns("user_crt").Caption = "User Creat"
+        View.Columns("user_upd").Caption = "User Update"
+        View.Columns("dtm_crt").Caption = "Dtm Create"
+        View.Columns("dtm_upd").Caption = "Dtm Update"
 
         gridControl1.RefreshDataSource()
     End Sub
 
+    Sub resetData()
+        BarEditItemDivisiName.EditValue = Nothing
+        gridControl1.DataSource = Nothing
+        gridControl1.RefreshDataSource()
+    End Sub
 
     Private Sub bbiRefresh_ItemClick(sender As Object, e As ItemClickEventArgs) Handles bbiRefresh.ItemClick
         refreshData()
+    End Sub
+
+    Private Sub ribbonControl_Click(sender As Object, e As EventArgs) Handles ribbonControl.Click
+
+    End Sub
+
+    Private Sub XtraFormDivisi_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        refreshData()
+    End Sub
+
+    Private Sub BarButtonItemSearch_ItemClick(sender As Object, e As ItemClickEventArgs) Handles BarButtonItemSearch.ItemClick
+        refreshData()
+    End Sub
+
+    Private Sub BarButtonItemReset_ItemClick(sender As Object, e As ItemClickEventArgs) Handles BarButtonItemReset.ItemClick
+        resetData()
+    End Sub
+
+    Private Sub BarButtonItemPrintPreview_ItemClick(sender As Object, e As ItemClickEventArgs) Handles BarButtonItemPrintPreview.ItemClick
+        gridControl1.ShowRibbonPrintPreview()
+    End Sub
+
+    Private Sub bbiNew_ItemClick(sender As Object, e As ItemClickEventArgs) Handles bbiNew.ItemClick
+        Using f As New FormAddDivisi
+            f.ShowDialog()
+            refreshData()
+        End Using
+    End Sub
+
+    Private Sub bbiEdit_ItemClick(sender As Object, e As ItemClickEventArgs) Handles bbiEdit.ItemClick
+        Using f As New FormAddDivisi(TryCast(gridView.GetRow(gridView.FocusedRowHandle), DataRowView).Row.ItemArray(0), TryCast(gridView.GetRow(gridView.FocusedRowHandle), DataRowView).Row.ItemArray(1))
+            f.ShowDialog()
+            refreshData()
+        End Using
+    End Sub
+
+    Sub hapusData()
+        Dim rowView As DataRowView = TryCast(gridView.GetRow(gridView.FocusedRowHandle), DataRowView)
+        Call Koneksi()
+        Cmd = New MySqlCommand("delete from divisi where divisi_id = '" & TryCast(gridView.GetRow(gridView.FocusedRowHandle), DataRowView).Row.ItemArray(0) & "'", Conn)
+        Cmd.ExecuteNonQuery()
+        MsgBox("Divisi " & rowView("divisi_name").ToString() & " telah dihapus", vbOKOnly, "Success Message")
+        refreshData()
+    End Sub
+
+    Private Sub BarButtonItemDelete_ItemClick(sender As Object, e As ItemClickEventArgs) Handles BarButtonItemDelete.ItemClick
+        Dim rowView As DataRowView = TryCast(gridView.GetRow(gridView.FocusedRowHandle), DataRowView)
+
+        Select Case MsgBox("Apakah anda yakin ingin menghapus Divisi " & rowView("divisi_name").ToString() & " ?", MsgBoxStyle.YesNo, "MESSAGE")
+            Case MsgBoxResult.Yes
+                hapusData()
+        End Select
     End Sub
 End Class

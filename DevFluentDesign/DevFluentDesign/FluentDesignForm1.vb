@@ -12,7 +12,7 @@
     End Sub
 
 
-    Private Sub showForm(ByVal newForm As Form)
+    Public Sub showForm(ByVal newForm As Form)
         ' Set parent dari form menjadi FluentDesignFormContainer1
         newForm.TopLevel = False
         newForm.FormBorderStyle = FormBorderStyle.None
@@ -28,9 +28,7 @@
 
 
 
-    Private Sub BarButtonItem1_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles BarButtonItem1.ItemClick
-        XtraFormLogin.ShowDialog()
-    End Sub
+
 
     Private Sub FluentDesignForm1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         AccordionControl1.Visible = False
@@ -54,5 +52,30 @@
 
     Private Sub AccordionControlDivisi_Click(sender As Object, e As EventArgs) Handles AccordionControlDivisi.Click
         showForm(XtraFormDivisi)
+    End Sub
+
+    Private Sub BarEditItem3_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles BarEditItem3.ItemClick
+        XtraFormLogin.ShowDialog()
+    End Sub
+
+    Private Sub BarStaticItemLogin_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles BarStaticItemLogin.ItemClick
+        XtraFormLogin.ShowDialog()
+    End Sub
+
+    Private Sub BarButtonItem3_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles BarButtonItemLogin.ItemClick
+        If BarButtonItemLogin.Caption = "LOGIN" Then
+            FormLogin.ShowDialog()
+        ElseIf BarButtonItemLogin.Caption = "LOGOUT" Then
+            Select Case MsgBox("Apakah Anda Yakin Ingin Logout ?", MsgBoxStyle.YesNo, "MESSAGE")
+                Case MsgBoxResult.Yes
+                    XtraFormRequest.Close()
+                    XtraFormTask.Close()
+                    'FormMasterDivisi.Close()
+                    'FormMasterUser.Close()
+                    BarHeaderItem1.Caption = ""
+                    AccordionControl1.Visible = False
+                    BarButtonItemLogin.Caption = "LOGIN"
+            End Select
+        End If
     End Sub
 End Class

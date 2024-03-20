@@ -3,9 +3,11 @@ Imports DevExpress.XtraBars
 Imports System.ComponentModel.DataAnnotations
 Imports MySql.Data.MySqlClient
 Imports DevExpress.XtraGrid.Views.Grid
+Imports DevExpress.XtraEditors.Repository
 
 Partial Public Class XtraFormUser
-
+    Dim divisiDictionary As New Dictionary(Of Integer, String)()
+    Dim Condition As String
     Public Sub New()
         InitializeComponent()
 
@@ -38,40 +40,29 @@ Partial Public Class XtraFormUser
 
     Sub refreshData()
         Call Koneksi()
-        'If activeUserData.getIsAdmin Then
-        '    Condition = " Where 1=1 "
-        '    If ComboBoxFromDivisi.SelectedItem IsNot Nothing Then
-        '        If DirectCast(ComboBoxFromDivisi.SelectedValue, Integer) >= 0 Then
-        '            Condition = Condition & " and dFrom.divisi_id = '" & DirectCast(ComboBoxFromDivisi.SelectedValue, Integer) & "'"
-        '        End If
-        '    End If
-        'Else
-        '    Condition = " Where dFrom.divisi_id = " & activeUserData.getDivisionId
-        'End If
 
-        'If TextBoxRequestId.Text IsNot "" Then
-        '    Condition = Condition & " and r.request_id = '" & TextBoxRequestId.Text & "'"
-        'End If
-        'If TextBoxSubject.Text IsNot "" Then
-        '    Condition = Condition & " and r.subject like '%" & TextBoxSubject.Text & "%'"
-        'End If
-        'If ComboBoxDivisi.SelectedItem IsNot Nothing Then
-        '    If DirectCast(ComboBoxDivisi.SelectedValue, Integer) >= 0 Then
-        '        Condition = Condition & " and dTo.divisi_id = '" & DirectCast(ComboBoxDivisi.SelectedValue, Integer) & "'"
-        '    End If
-        'End If
-        'If ComboBoxStatus.SelectedItem IsNot Nothing Then
-        '    If DirectCast(ComboBoxStatus.SelectedValue, Integer) >= 0 Then
-        '        Condition = Condition & " and rs.ref_status_id = '" & DirectCast(ComboBoxStatus.SelectedValue, Integer) & "'"
-        '    End If
-        'End If
-        'If DateEdit1.Text IsNot "" Then
-        '    Condition = Condition & " and date(r.dtm_crt) >= '" & DateEdit1.Text & "'"
-        'End If
-        'If DateEdit2.Text IsNot "" Then
-        '    Condition = Condition & " and date(r.dtm_crt) <= '" & DateEdit2.Text & "'"
-        'End If
-        Dim Cari_Data As String = "SELECT u.user_id as user_id, u.fullname as fullname, u.username as username, u.password as password, d.divisi_name as divisi_name, u.user_crt as user_crt, u.user_upd as user_upd, u.dtm_crt as dtm_crt, u.dtm_upd as dtm_upd FROM user u left join divisi d on u.divisi_id = d.divisi_id"
+        Condition = " Where 1=1 "
+
+        If BarEditItemUsername.EditValue IsNot Nothing Then
+            If BarEditItemUsername.EditValue.ToString() IsNot "" Then
+                Condition = Condition & " and u.username like '%" & BarEditItemUsername.EditValue.ToString() & "%'"
+            End If
+        End If
+        If BarEditItemFullName.EditValue IsNot Nothing Then
+            If BarEditItemFullName.EditValue.ToString() IsNot "" Then
+                Condition = Condition & "and u.fullname like '%" & BarEditItemFullName.EditValue.ToString() & "%'"
+            End If
+        End If
+        If BarEditItemDivisi.EditValue IsNot Nothing Then
+            If DirectCast(BarEditItemDivisi.EditValue, Integer) >= 0 Then
+                Condition = Condition & " and d.divisi_id = '" & DirectCast(BarEditItemDivisi.EditValue, Integer) & "'"
+            End If
+        End If
+
+        Dim Cari_Data As String = "SELECT u.user_id as user_id, u.fullname as fullname, u.username as username, u.password as password, d.divisi_id as divisi_id,  d.divisi_name as divisi_name, c.id as cabang_id, c.nama as cabang_name, u.chat_id_telegram as id_telegram, u.is_admin as is_admin, u.user_crt as user_crt, u.user_upd as user_upd, u.dtm_crt as dtm_crt, u.dtm_upd as dtm_upd 
+                                   FROM user u 
+                                      left join divisi d on u.divisi_id = d.divisi_id
+                                      left join mcabang c on c.id = u.id_cabang" & Condition
 
         Dim Cmd As New MySqlCommand(Cari_Data, Conn)
 
@@ -87,17 +78,118 @@ Partial Public Class XtraFormUser
 
         View.OptionsView.ColumnAutoWidth = False
 
-        'If View.Columns("request_no") IsNot Nothing Then
-        '    View.Columns("request_no").Caption = "Request No"
-        'End If
-        'If View.Columns("subject") IsNot Nothing Then
-        '    View.Columns("subject").Caption = "Subject"
-        'End If
+        View.Columns("fullname").Width = 200
+        View.Columns("username").Width = 150
+        View.Columns("password").Width = 150
+        View.Columns("divisi_name").Width = 150
+        View.Columns("cabang_name").Width = 150
+        View.Columns("id_telegram").Width = 100
+        View.Columns("is_admin").Width = 100
+        View.Columns("user_crt").Width = 100
+        View.Columns("user_upd").Width = 100
+        View.Columns("dtm_crt").Width = 100
+        View.Columns("dtm_upd").Width = 100
+
+        View.Columns("fullname").Caption = "Nama Lengkap"
+        View.Columns("username").Caption = "Username"
+        View.Columns("password").Caption = "Password"
+        View.Columns("divisi_name").Caption = "Divisi"
+        View.Columns("cabang_name").Caption = "Cabang"
+        View.Columns("id_telegram").Caption = "Id Telegram"
+        View.Columns("is_admin").Caption = "Is Admin"
+        View.Columns("user_crt").Caption = "User Create"
+        View.Columns("user_upd").Caption = "User Update"
+        View.Columns("dtm_crt").Caption = "Dtm Create"
+        View.Columns("dtm_upd").Caption = "Dtm Update"
+
+        View.Columns("user_id").Visible = False
+        View.Columns("divisi_id").Visible = False
+        View.Columns("cabang_id").Visible = False
 
         gridControl1.RefreshDataSource()
     End Sub
 
+    Sub resetForm()
+        BarEditItemDivisi.EditValue = -1
+        BarEditItemFullName.EditValue = Nothing
+        BarEditItemUsername.EditValue = Nothing
+        gridControl1.DataSource = Nothing
+        gridControl1.RefreshDataSource()
+    End Sub
+    Sub setComboboxValue()
+        divisiDictionary.Clear()
+        BarEditItemDivisi.EditValue = Nothing
+        Call Koneksi()
+        Cmd = New MySqlCommand("SELECT divisi_id, divisi_name FROM divisi", Conn)
+        Rd = Cmd.ExecuteReader
+        divisiDictionary.Add(-1, "Pilih Divisi")
+
+        Do While Rd.Read
+            Dim divisiId As Integer = Rd.GetInt32("divisi_id")
+            Dim divisiName As String = Rd.GetString("divisi_name")
+
+            If activeUserData.getIsAdmin Then
+                divisiDictionary.Add(divisiId, divisiName)
+            Else
+                If divisiId <> activeUserData.getDivisionId Then
+                    divisiDictionary.Add(divisiId, divisiName)
+                End If
+            End If
+        Loop
+
+        Dim repositoryItemLookUpEditDivisi As New RepositoryItemLookUpEdit()
+        repositoryItemLookUpEditDivisi.DataSource = New BindingSource(divisiDictionary, Nothing)
+        repositoryItemLookUpEditDivisi.DisplayMember = "Value"
+        repositoryItemLookUpEditDivisi.ValueMember = "Key"
+
+        BarEditItemDivisi.Edit = repositoryItemLookUpEditDivisi
+        BarEditItemDivisi.EditValue = -1
+    End Sub
+
     Private Sub bbiRefresh_ItemClick(sender As Object, e As ItemClickEventArgs) Handles bbiRefresh.ItemClick
         refreshData()
+    End Sub
+
+    Private Sub XtraFormUser_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        refreshData()
+        setComboboxValue()
+    End Sub
+
+    Private Sub BarButtonItemSearch_ItemClick(sender As Object, e As ItemClickEventArgs) Handles BarButtonItemSearch.ItemClick
+        refreshData()
+    End Sub
+
+    Private Sub BarButtonItemReset_ItemClick(sender As Object, e As ItemClickEventArgs) Handles BarButtonItemReset.ItemClick
+        resetForm()
+    End Sub
+
+    Private Sub bbiNew_ItemClick(sender As Object, e As ItemClickEventArgs) Handles bbiNew.ItemClick
+        Using f As New FormAddUser
+            f.ShowDialog()
+            refreshData()
+        End Using
+    End Sub
+
+    Private Sub bbiEdit_ItemClick(sender As Object, e As ItemClickEventArgs) Handles bbiEdit.ItemClick
+        Using f As New FormAddUser(TryCast(gridView.GetRow(gridView.FocusedRowHandle), DataRowView).Row.ItemArray(0))
+            f.ShowDialog(Me)
+            refreshData()
+        End Using
+    End Sub
+    Sub hapusData()
+        Dim rowView As DataRowView = TryCast(gridView.GetRow(gridView.FocusedRowHandle), DataRowView)
+        Call Koneksi()
+        Cmd = New MySqlCommand("delete from user where user_id = '" & TryCast(gridView.GetRow(gridView.FocusedRowHandle), DataRowView).Row.ItemArray(0) & "'", Conn)
+        Cmd.ExecuteNonQuery()
+        MsgBox("User " & rowView("fullname").ToString() & " telah dihapus", vbOKOnly, "Success Message")
+        refreshData()
+    End Sub
+    Private Sub BarButtonItemDelete_ItemClick(sender As Object, e As ItemClickEventArgs) Handles BarButtonItemDelete.ItemClick
+        Dim rowView As DataRowView = TryCast(gridView.GetRow(gridView.FocusedRowHandle), DataRowView)
+
+        Select Case MsgBox("Apakah anda yakin ingin menghapus User " & rowView("fullname").ToString() & " ?", MsgBoxStyle.YesNo, "MESSAGE")
+            Case MsgBoxResult.Yes
+                hapusData()
+        End Select
     End Sub
 End Class

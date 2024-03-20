@@ -136,6 +136,12 @@
     <Compile Include="Classes\Database.vb" />
     <Compile Include="Classes\DataStructure.vb" />
     <Compile Include="Classes\UserData.vb" />
+    <Compile Include="Controls\HistoryCard.Designer.vb">
+      <DependentUpon>HistoryCard.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\HistoryCard.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Dashboard1.Designer.vb">
       <DependentUpon>Dashboard1.vb</DependentUpon>
     </Compile>
@@ -148,11 +154,35 @@
     <Compile Include="FluentDesignForm1.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FormAddDivisi.Designer.vb">
+      <DependentUpon>FormAddDivisi.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormAddDivisi.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAddUser.Designer.vb">
+      <DependentUpon>FormAddUser.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormAddUser.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormDashboard.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormDashboard.Designer.vb">
       <DependentUpon>FormDashboard.vb</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormLogin.Designer.vb">
+      <DependentUpon>FormLogin.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormLogin.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRequestDetail.Designer.vb">
+      <DependentUpon>FormRequestDetail.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormRequestDetail.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Module1.vb" />
@@ -227,14 +257,29 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Controls\HistoryCard.resx">
+      <DependentUpon>HistoryCard.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dashboard1.resx">
       <DependentUpon>Dashboard1.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FluentDesignForm1.resx">
       <DependentUpon>FluentDesignForm1.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormAddDivisi.resx">
+      <DependentUpon>FormAddDivisi.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAddUser.resx">
+      <DependentUpon>FormAddUser.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormDashboard.resx">
       <DependentUpon>FormDashboard.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormLogin.resx">
+      <DependentUpon>FormLogin.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormRequestDetail.resx">
+      <DependentUpon>FormRequestDetail.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\licenses.licx" />
     <EmbeddedResource Include="My Project\Resources.resx">

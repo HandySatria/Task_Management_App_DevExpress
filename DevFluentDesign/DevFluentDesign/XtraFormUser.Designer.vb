@@ -24,6 +24,7 @@ Partial Public Class XtraFormUser
     ''' the contents of this method with the code editor.
     ''' </summary>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(XtraFormUser))
         Me.gridControl1 = New DevExpress.XtraGrid.GridControl()
         Me.gridView = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.ribbonControl = New DevExpress.XtraBars.Ribbon.RibbonControl()
@@ -33,13 +34,26 @@ Partial Public Class XtraFormUser
         Me.bbiEdit = New DevExpress.XtraBars.BarButtonItem()
         Me.bbiDelete = New DevExpress.XtraBars.BarButtonItem()
         Me.bbiRefresh = New DevExpress.XtraBars.BarButtonItem()
+        Me.BarEditItemUsername = New DevExpress.XtraBars.BarEditItem()
+        Me.RepositoryItemTextEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
+        Me.BarEditItemFullName = New DevExpress.XtraBars.BarEditItem()
+        Me.RepositoryItemTextEdit2 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
+        Me.BarEditItemDivisi = New DevExpress.XtraBars.BarEditItem()
+        Me.RepositoryItemComboBox1 = New DevExpress.XtraEditors.Repository.RepositoryItemComboBox()
+        Me.BarButtonItemSearch = New DevExpress.XtraBars.BarButtonItem()
+        Me.BarButtonItemReset = New DevExpress.XtraBars.BarButtonItem()
         Me.ribbonPage1 = New DevExpress.XtraBars.Ribbon.RibbonPage()
         Me.ribbonPageGroup1 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
+        Me.RibbonPageGroup3 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         Me.ribbonPageGroup2 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         Me.ribbonStatusBar = New DevExpress.XtraBars.Ribbon.RibbonStatusBar()
+        Me.BarButtonItemDelete = New DevExpress.XtraBars.BarButtonItem()
         CType(Me.gridControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.gridView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ribbonControl, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RepositoryItemComboBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'gridControl1
@@ -67,13 +81,14 @@ Partial Public Class XtraFormUser
         'ribbonControl
         '
         Me.ribbonControl.ExpandCollapseItem.Id = 0
-        Me.ribbonControl.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.ribbonControl.ExpandCollapseItem, Me.bbiPrintPreview, Me.bsiRecordsCount, Me.bbiNew, Me.bbiEdit, Me.bbiDelete, Me.bbiRefresh, Me.ribbonControl.SearchEditItem})
+        Me.ribbonControl.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.ribbonControl.ExpandCollapseItem, Me.ribbonControl.SearchEditItem, Me.bbiPrintPreview, Me.bsiRecordsCount, Me.bbiNew, Me.bbiEdit, Me.bbiDelete, Me.bbiRefresh, Me.BarEditItemUsername, Me.BarEditItemFullName, Me.BarEditItemDivisi, Me.BarButtonItemSearch, Me.BarButtonItemReset, Me.BarButtonItemDelete})
         Me.ribbonControl.Location = New System.Drawing.Point(0, 0)
         Me.ribbonControl.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.ribbonControl.MaxItemId = 20
+        Me.ribbonControl.MaxItemId = 26
         Me.ribbonControl.Name = "ribbonControl"
         Me.ribbonControl.OptionsMenuMinWidth = 385
         Me.ribbonControl.Pages.AddRange(New DevExpress.XtraBars.Ribbon.RibbonPage() {Me.ribbonPage1})
+        Me.ribbonControl.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit1, Me.RepositoryItemTextEdit2, Me.RepositoryItemComboBox1})
         Me.ribbonControl.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2013
         Me.ribbonControl.ShowApplicationButton = DevExpress.Utils.DefaultBoolean.[False]
         Me.ribbonControl.Size = New System.Drawing.Size(1144, 193)
@@ -111,7 +126,9 @@ Partial Public Class XtraFormUser
         '
         Me.bbiDelete.Caption = "Delete"
         Me.bbiDelete.Id = 18
+        Me.bbiDelete.ImageOptions.Image = CType(resources.GetObject("bbiDelete.ImageOptions.Image"), System.Drawing.Image)
         Me.bbiDelete.ImageOptions.ImageUri.Uri = "Delete"
+        Me.bbiDelete.ImageOptions.LargeImage = CType(resources.GetObject("bbiDelete.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.bbiDelete.Name = "bbiDelete"
         '
         'bbiRefresh
@@ -121,9 +138,70 @@ Partial Public Class XtraFormUser
         Me.bbiRefresh.ImageOptions.ImageUri.Uri = "Refresh"
         Me.bbiRefresh.Name = "bbiRefresh"
         '
+        'BarEditItemUsername
+        '
+        Me.BarEditItemUsername.Caption = "Username        "
+        Me.BarEditItemUsername.Edit = Me.RepositoryItemTextEdit1
+        Me.BarEditItemUsername.EditWidth = 100
+        Me.BarEditItemUsername.Id = 20
+        Me.BarEditItemUsername.Name = "BarEditItemUsername"
+        Me.BarEditItemUsername.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large
+        '
+        'RepositoryItemTextEdit1
+        '
+        Me.RepositoryItemTextEdit1.AutoHeight = False
+        Me.RepositoryItemTextEdit1.Name = "RepositoryItemTextEdit1"
+        '
+        'BarEditItemFullName
+        '
+        Me.BarEditItemFullName.Caption = "Nama Lengkap "
+        Me.BarEditItemFullName.Edit = Me.RepositoryItemTextEdit2
+        Me.BarEditItemFullName.EditWidth = 100
+        Me.BarEditItemFullName.Id = 21
+        Me.BarEditItemFullName.Name = "BarEditItemFullName"
+        Me.BarEditItemFullName.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large
+        '
+        'RepositoryItemTextEdit2
+        '
+        Me.RepositoryItemTextEdit2.AutoHeight = False
+        Me.RepositoryItemTextEdit2.Name = "RepositoryItemTextEdit2"
+        '
+        'BarEditItemDivisi
+        '
+        Me.BarEditItemDivisi.Caption = "Divisi                "
+        Me.BarEditItemDivisi.Edit = Me.RepositoryItemComboBox1
+        Me.BarEditItemDivisi.EditWidth = 100
+        Me.BarEditItemDivisi.Id = 22
+        Me.BarEditItemDivisi.Name = "BarEditItemDivisi"
+        Me.BarEditItemDivisi.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large
+        '
+        'RepositoryItemComboBox1
+        '
+        Me.RepositoryItemComboBox1.AutoHeight = False
+        Me.RepositoryItemComboBox1.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.RepositoryItemComboBox1.Name = "RepositoryItemComboBox1"
+        '
+        'BarButtonItemSearch
+        '
+        Me.BarButtonItemSearch.Caption = "Search"
+        Me.BarButtonItemSearch.Id = 23
+        Me.BarButtonItemSearch.ImageOptions.Image = CType(resources.GetObject("BarButtonItemSearch.ImageOptions.Image"), System.Drawing.Image)
+        Me.BarButtonItemSearch.ImageOptions.LargeImage = CType(resources.GetObject("BarButtonItemSearch.ImageOptions.LargeImage"), System.Drawing.Image)
+        Me.BarButtonItemSearch.Name = "BarButtonItemSearch"
+        Me.BarButtonItemSearch.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large
+        '
+        'BarButtonItemReset
+        '
+        Me.BarButtonItemReset.Caption = "Reset"
+        Me.BarButtonItemReset.Id = 24
+        Me.BarButtonItemReset.ImageOptions.Image = CType(resources.GetObject("BarButtonItemReset.ImageOptions.Image"), System.Drawing.Image)
+        Me.BarButtonItemReset.ImageOptions.LargeImage = CType(resources.GetObject("BarButtonItemReset.ImageOptions.LargeImage"), System.Drawing.Image)
+        Me.BarButtonItemReset.Name = "BarButtonItemReset"
+        Me.BarButtonItemReset.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large
+        '
         'ribbonPage1
         '
-        Me.ribbonPage1.Groups.AddRange(New DevExpress.XtraBars.Ribbon.RibbonPageGroup() {Me.ribbonPageGroup1, Me.ribbonPageGroup2})
+        Me.ribbonPage1.Groups.AddRange(New DevExpress.XtraBars.Ribbon.RibbonPageGroup() {Me.ribbonPageGroup1, Me.RibbonPageGroup3, Me.ribbonPageGroup2})
         Me.ribbonPage1.MergeOrder = 0
         Me.ribbonPage1.Name = "ribbonPage1"
         Me.ribbonPage1.Text = "Home"
@@ -134,10 +212,20 @@ Partial Public Class XtraFormUser
         Me.ribbonPageGroup1.CaptionButtonVisible = DevExpress.Utils.DefaultBoolean.[False]
         Me.ribbonPageGroup1.ItemLinks.Add(Me.bbiNew)
         Me.ribbonPageGroup1.ItemLinks.Add(Me.bbiEdit)
-        Me.ribbonPageGroup1.ItemLinks.Add(Me.bbiDelete)
+        Me.ribbonPageGroup1.ItemLinks.Add(Me.BarButtonItemDelete)
         Me.ribbonPageGroup1.ItemLinks.Add(Me.bbiRefresh)
         Me.ribbonPageGroup1.Name = "ribbonPageGroup1"
         Me.ribbonPageGroup1.Text = "Tasks"
+        '
+        'RibbonPageGroup3
+        '
+        Me.RibbonPageGroup3.ItemLinks.Add(Me.BarEditItemUsername)
+        Me.RibbonPageGroup3.ItemLinks.Add(Me.BarEditItemFullName)
+        Me.RibbonPageGroup3.ItemLinks.Add(Me.BarEditItemDivisi)
+        Me.RibbonPageGroup3.ItemLinks.Add(Me.BarButtonItemSearch)
+        Me.RibbonPageGroup3.ItemLinks.Add(Me.BarButtonItemReset)
+        Me.RibbonPageGroup3.Name = "RibbonPageGroup3"
+        Me.RibbonPageGroup3.Text = "Search Data"
         '
         'ribbonPageGroup2
         '
@@ -156,6 +244,15 @@ Partial Public Class XtraFormUser
         Me.ribbonStatusBar.Ribbon = Me.ribbonControl
         Me.ribbonStatusBar.Size = New System.Drawing.Size(1144, 30)
         '
+        'BarButtonItemDelete
+        '
+        Me.BarButtonItemDelete.Caption = "Delete"
+        Me.BarButtonItemDelete.Id = 25
+        Me.BarButtonItemDelete.ImageOptions.Image = CType(resources.GetObject("BarButtonItemDelete.ImageOptions.Image"), System.Drawing.Image)
+        Me.BarButtonItemDelete.ImageOptions.LargeImage = CType(resources.GetObject("BarButtonItemDelete.ImageOptions.LargeImage"), System.Drawing.Image)
+        Me.BarButtonItemDelete.Name = "BarButtonItemDelete"
+        Me.BarButtonItemDelete.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large
+        '
         'XtraFormUser
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
@@ -171,6 +268,9 @@ Partial Public Class XtraFormUser
         CType(Me.gridControl1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.gridView, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.ribbonControl, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RepositoryItemComboBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -190,4 +290,14 @@ Partial Public Class XtraFormUser
     Private WithEvents bbiEdit As DevExpress.XtraBars.BarButtonItem
     Private WithEvents bbiDelete As DevExpress.XtraBars.BarButtonItem
     Private WithEvents bbiRefresh As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents RibbonPageGroup3 As DevExpress.XtraBars.Ribbon.RibbonPageGroup
+    Friend WithEvents BarEditItemUsername As DevExpress.XtraBars.BarEditItem
+    Friend WithEvents RepositoryItemTextEdit1 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
+    Friend WithEvents BarEditItemFullName As DevExpress.XtraBars.BarEditItem
+    Friend WithEvents RepositoryItemTextEdit2 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
+    Friend WithEvents BarEditItemDivisi As DevExpress.XtraBars.BarEditItem
+    Friend WithEvents RepositoryItemComboBox1 As DevExpress.XtraEditors.Repository.RepositoryItemComboBox
+    Friend WithEvents BarButtonItemSearch As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents BarButtonItemReset As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents BarButtonItemDelete As DevExpress.XtraBars.BarButtonItem
 End Class

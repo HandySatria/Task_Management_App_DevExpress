@@ -11,6 +11,8 @@ Imports DevExpress.XtraEditors.Controls
 Partial Public Class XtraFormRequest
     Dim divisiDictionary As New Dictionary(Of Integer, String)()
     Dim statusDictionary As New Dictionary(Of Integer, String)()
+    Dim prioritasDictionary As New Dictionary(Of Integer, String)()
+
     Dim Condition As String
 
     Public Sub New()
@@ -56,9 +58,9 @@ Partial Public Class XtraFormRequest
         Condition = " Where dFrom.divisi_id = " & activeUserData.getDivisionId
         'End If
 
-        If BarEditItemRequestId.EditValue IsNot Nothing Then
-            If BarEditItemRequestId.EditValue.ToString() IsNot "" Then
-                Condition = Condition & " and r.request_id = '" & BarEditItemRequestId.EditValue.ToString() & "'"
+        If BarEditItemPrioritas.EditValue IsNot Nothing Then
+            If DirectCast(BarEditItemPrioritas.EditValue, Integer) >= 0 Then
+                Condition = Condition & " and rp.ref_prioritas_id = '" & DirectCast(BarEditItemPrioritas.EditValue, Integer) & "'"
             End If
         End If
         If BarEditItemSubjek.EditValue IsNot Nothing Then
@@ -83,8 +85,8 @@ Partial Public Class XtraFormRequest
             Condition = Condition & " and date(r.dtm_crt) <= '" & Format(BarEditItemTglRequest2.EditValue, "yyyy-MM-dd") & "'"
         End If
 
-        Dim Cari_Data As String = "select r.request_id as request_id, r.request_no as request_no, r.subject as subject, r.description as description, dTo.divisi_name as to_divisi,dTo.divisi_id as to_divisi_id, dFrom.divisi_name as from_divisi, 
-                                rp.prioritas_name as prioritas_name, rp.ref_prioritas_id as ref_prioritas_id, rs.status_name as status_name, rs.ref_status_id as ref_status_id, mc.id as cabang_id, mc.nama as cabang_name,
+        Dim Cari_Data As String = "select r.request_id as request_id, r.request_no as request_no, dFrom.divisi_name as from_divisi, dTo.divisi_name as to_divisi,dTo.divisi_id as to_divisi_id, r.subject as subject, r.description as description, 
+                                rs.status_name as status_name, rs.ref_status_id as ref_status_id, rp.prioritas_name as prioritas_name, rp.ref_prioritas_id as ref_prioritas_id, mc.id as cabang_id, mc.nama as cabang_name, 
                                 r.user_crt as user_crt, r.user_upd as user_upd, r.dtm_crt as dtm_crt, r.dtm_upd as dtm_upd 
                         from request r 
                             left join divisi dTo on dTo.divisi_id = r.to_divisi 
@@ -108,20 +110,101 @@ Partial Public Class XtraFormRequest
 
         View.OptionsView.ColumnAutoWidth = False
 
-        'If View.Columns("request_no") IsNot Nothing Then
-        '    View.Columns("request_no").Caption = "Request No"
-        'End If
-        'If View.Columns("subject") IsNot Nothing Then
-        '    View.Columns("subject").Caption = "Subject"
-        'End If
+        View.Columns("request_no").Width = 120
+        View.Columns("from_divisi").Width = 150
+        View.Columns("to_divisi").Width = 150
+        View.Columns("subject").Width = 200
+        View.Columns("description").Width = 200
+        View.Columns("status_name").Width = 100
+        View.Columns("prioritas_name").Width = 100
+        View.Columns("cabang_name").Width = 200
+
+        View.Columns("request_no").Caption = "Nomor Request"
+        View.Columns("from_divisi").Caption = "Dari Divisi"
+        View.Columns("to_divisi").Caption = "Ke Divisi"
+        View.Columns("subject").Caption = "Subjek"
+        View.Columns("description").Caption = "Deskripsi"
+        View.Columns("status_name").Caption = "Status"
+        View.Columns("prioritas_name").Caption = "Prioritas"
+        View.Columns("cabang_name").Caption = "Cabang"
+
+        View.Columns("request_id").Visible = False
+        View.Columns("to_divisi_id").Visible = False
+        View.Columns("ref_prioritas_id").Visible = False
+        View.Columns("ref_status_id").Visible = False
+        View.Columns("cabang_id").Visible = False
+        View.Columns("user_crt").Visible = False
+        View.Columns("user_upd").Visible = False
+        View.Columns("dtm_crt").Visible = False
+        View.Columns("dtm_upd").Visible = False
+
+        AddHandler View.RowCellStyle, AddressOf View_RowCellStyle
 
         gridControl1.RefreshDataSource()
+    End Sub
+
+    Private Sub View_RowCellStyle(sender As Object, e As RowCellStyleEventArgs)
+        Dim View As GridView = TryCast(sender, GridView)
+
+        If e.Column.FieldName = "status_name" AndAlso e.RowHandle >= 0 Then
+            Dim value As Object = View.GetRowCellValue(e.RowHandle, "ref_status_id")
+
+            If value IsNot Nothing AndAlso Not Equals(value, System.DBNull.Value) Then
+                Dim statusId As Integer = Convert.ToInt32(value)
+
+                Select Case statusId
+                    Case 1 '
+                        e.Appearance.BackColor = Color.LightYellow
+                    Case 2
+                        e.Appearance.BackColor = Color.Yellow
+                    Case 4
+                        e.Appearance.BackColor = Color.Red
+                    Case 5
+                        e.Appearance.BackColor = Color.LightBlue
+                    Case 6
+                        e.Appearance.BackColor = Color.Blue
+                    Case 7
+                        e.Appearance.BackColor = Color.LawnGreen
+                    Case 8
+                        e.Appearance.BackColor = Color.Green
+                    Case 9
+                        e.Appearance.BackColor = Color.MediumSlateBlue
+                End Select
+            End If
+        End If
+        If e.Column.FieldName = "prioritas_name" AndAlso e.RowHandle >= 0 Then
+            Dim value As Object = View.GetRowCellValue(e.RowHandle, "ref_prioritas_id")
+
+            If value IsNot Nothing AndAlso Not Equals(value, System.DBNull.Value) Then
+                Dim refPrioritasId As Integer = Convert.ToInt32(value)
+
+                Select Case refPrioritasId
+                    Case 1 '
+                        e.Appearance.ForeColor = Color.Red
+                    Case 2
+                        e.Appearance.ForeColor = Color.Blue
+                    Case 3
+                        e.Appearance.ForeColor = Color.Green
+                End Select
+            End If
+        End If
     End Sub
 
     Private Sub bbiRefresh_ItemClick(sender As Object, e As ItemClickEventArgs) Handles bbiRefresh.ItemClick
         refreshData()
     End Sub
 
+    Sub resetForm()
+        BarEditItemPrioritas.EditValue = -1
+        BarEditItemDivisi.EditValue = -1
+        BarEditItemStatus.EditValue = -1
+        BarEditItemRequestId.EditValue = Nothing
+        BarEditItemSubjek.EditValue = Nothing
+        BarEditItemTglRequest1.EditValue = Nothing
+        BarEditItemTglRequest2.EditValue = Nothing
+        gridControl1.DataSource = Nothing
+        gridControl1.RefreshDataSource()
+    End Sub
 
     Private Sub gridControl1_Click(sender As Object, e As EventArgs) Handles gridControl1.Click
         ' Assuming you have a GridControl named gridControl1
@@ -130,23 +213,18 @@ Partial Public Class XtraFormRequest
         If gridView IsNot Nothing Then
             Dim focusedRow As Integer = gridView.FocusedRowHandle
 
-            ' Ensure the focused row handle is valid
             If focusedRow >= 0 AndAlso focusedRow < gridView.RowCount Then
-                ' Replace 0 with the index of the column you want to retrieve
                 Dim columnIndex As Integer = 1
 
-                ' Get the focused row
                 Dim row As DataRowView = TryCast(gridView.GetRow(focusedRow), DataRowView)
 
                 If row IsNot Nothing Then
-                    ' Get the cell value from the row using the column index
                     Dim cellValue As Object = row.Row.ItemArray(columnIndex)
 
                     If cellValue IsNot Nothing Then
-                        ' Do something with the cell value
                         Console.WriteLine(cellValue.ToString())
                         RibbonPageGroup6.Text = "No Request : " & cellValue.ToString() & ", Status : " & row.Row.ItemArray(9)
-                        If row.Row.ItemArray(10) = 7 Then
+                        If Convert.ToInt32(row("ref_status_id")) = 7 Then
                             BarButtonItemApprove.Visibility = BarItemVisibility.Always
                             BarButtonItemNotApprove.Visibility = BarItemVisibility.Always
                         Else
@@ -189,8 +267,6 @@ Partial Public Class XtraFormRequest
         repositoryItemLookUpEditDivisi.DisplayMember = "Value"
         repositoryItemLookUpEditDivisi.ValueMember = "Key"
 
-
-        ' Mengatur RepositoryItemLookUpEdit ke BarEditItem
         BarEditItemDivisi.Edit = repositoryItemLookUpEditDivisi
         BarEditItemDivisi.EditValue = -1
 
@@ -215,10 +291,31 @@ Partial Public Class XtraFormRequest
         repositoryItemLookUpEditStatus.DisplayMember = "Value"
         repositoryItemLookUpEditStatus.ValueMember = "Key"
 
-
-        ' Mengatur RepositoryItemLookUpEdit ke BarEditItem
         BarEditItemStatus.Edit = repositoryItemLookUpEditStatus
         BarEditItemStatus.EditValue = -1
+
+        prioritasDictionary.Clear()
+        BarEditItemPrioritas.EditValue = Nothing
+        Call Koneksi()
+        Cmd = New MySqlCommand("SELECT ref_prioritas_id, prioritas_name FROM ref_prioritas", Conn)
+        Rd = Cmd.ExecuteReader
+        prioritasDictionary.Add(-1, "Pilih Prioritas")
+
+        Do While Rd.Read
+            Dim statusId As Integer = Rd.GetInt32("ref_prioritas_id")
+            Dim statusName As String = Rd.GetString("prioritas_name")
+
+            prioritasDictionary.Add(statusId, statusName)
+
+        Loop
+
+        Dim repositoryItemLookUpEditPrioritas As New RepositoryItemLookUpEdit()
+        repositoryItemLookUpEditprioritas.DataSource = New BindingSource(prioritasDictionary, Nothing)
+        repositoryItemLookUpEditprioritas.DisplayMember = "Value"
+        repositoryItemLookUpEditprioritas.ValueMember = "Key"
+
+        BarEditItemPrioritas.Edit = repositoryItemLookUpEditPrioritas
+        BarEditItemPrioritas.EditValue = -1
 
     End Sub
 
@@ -292,4 +389,39 @@ Partial Public Class XtraFormRequest
                 refreshData()
         End Select
     End Function
+
+    Private Sub BarButtonItemReset_ItemClick(sender As Object, e As ItemClickEventArgs) Handles BarButtonItemReset.ItemClick
+        resetForm()
+    End Sub
+
+    Private Sub BarButtonItem3_ItemClick(sender As Object, e As ItemClickEventArgs) Handles BarButtonItem3.ItemClick
+
+        Dim rowValue As New List(Of String)
+
+        For Each col As DevExpress.XtraGrid.Columns.GridColumn In gridView.Columns
+            ' Mendapatkan nilai dari baris yang dipilih
+            rowValue.Add(gridView.GetRowCellValue(gridView.FocusedRowHandle, col).ToString())
+        Next
+
+        Dim f As New FormRequestDetail(TryCast(gridView.GetRow(gridView.FocusedRowHandle), DataRowView).Row.ItemArray(0), rowValue)
+        'f.LabelStatus.BackColor = cellBackColor
+        'f.LabelPriority.ForeColor = TryCast(gridView.GetRow(gridView.FocusedRowHandle), DataRowView).Row.ItemArray(7)
+        FluentDesignForm1.showForm(f)
+    End Sub
+    Sub hapusData()
+        Dim rowView As DataRowView = TryCast(gridView.GetRow(gridView.FocusedRowHandle), DataRowView)
+        Call Koneksi()
+        Cmd = New MySqlCommand("delete from request where request_id = '" & TryCast(gridView.GetRow(gridView.FocusedRowHandle), DataRowView).Row.ItemArray(0) & "'", Conn)
+        Cmd.ExecuteNonQuery()
+        MsgBox("Request dengan Subject " & rowView("subject").ToString() & " telah dihapus", vbOKOnly, "Success Message")
+        refreshData()
+    End Sub
+    Private Sub BarButtonItem4_ItemClick(sender As Object, e As ItemClickEventArgs) Handles BarButtonItem4.ItemClick
+        Dim rowView As DataRowView = TryCast(gridView.GetRow(gridView.FocusedRowHandle), DataRowView)
+
+        Select Case MsgBox("Apakah anda yakin ingin menghapus Request " & rowView("subject").ToString() & " ?", MsgBoxStyle.YesNo, "MESSAGE")
+            Case MsgBoxResult.Yes
+                hapusData()
+        End Select
+    End Sub
 End Class

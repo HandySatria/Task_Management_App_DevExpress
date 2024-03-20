@@ -51,11 +51,14 @@ Partial Public Class XtraFormTask
         Me.BarEditItemStatus = New DevExpress.XtraBars.BarEditItem()
         Me.RepositoryItemComboBox2 = New DevExpress.XtraEditors.Repository.RepositoryItemComboBox()
         Me.BarButtonItem1 = New DevExpress.XtraBars.BarButtonItem()
+        Me.BarEditItemPrioritas = New DevExpress.XtraBars.BarEditItem()
+        Me.BarButtonItemReset = New DevExpress.XtraBars.BarButtonItem()
         Me.ribbonPage1 = New DevExpress.XtraBars.Ribbon.RibbonPage()
         Me.ribbonPageGroup1 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
-        Me.ribbonPageGroup2 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         Me.RibbonPageGroup7 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         Me.RibbonPageGroup8 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
+        Me.ribbonPageGroup2 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
+        Me.RepositoryItemComboBox3 = New DevExpress.XtraEditors.Repository.RepositoryItemComboBox()
         Me.ribbonStatusBar = New DevExpress.XtraBars.Ribbon.RibbonStatusBar()
         Me.RibbonPageGroup3 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         Me.RibbonPageGroup4 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
@@ -72,6 +75,7 @@ Partial Public Class XtraFormTask
         CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemComboBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemComboBox2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RepositoryItemComboBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.gridView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.gridControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -79,14 +83,14 @@ Partial Public Class XtraFormTask
         'ribbonControl
         '
         Me.ribbonControl.ExpandCollapseItem.Id = 0
-        Me.ribbonControl.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.ribbonControl.ExpandCollapseItem, Me.ribbonControl.SearchEditItem, Me.bbiPrintPreview, Me.bsiRecordsCount, Me.bbiNew, Me.bbiEdit, Me.bbiDelete, Me.bbiRefresh, Me.BarButtonItemDelete, Me.BarButtonItemView, Me.BarButtonItemAccept, Me.BarButtonItemReject, Me.BarButtonItemOnProgress, Me.BarButtonItemDone, Me.BarEditItemTaskId, Me.BarEditItemTglRequest1, Me.BarEditItemTglRequest2, Me.BarEditItemSubjek, Me.BarEditItemDariDivisi, Me.BarEditItemStatus, Me.BarButtonItem1})
+        Me.ribbonControl.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.ribbonControl.ExpandCollapseItem, Me.ribbonControl.SearchEditItem, Me.bbiPrintPreview, Me.bsiRecordsCount, Me.bbiNew, Me.bbiEdit, Me.bbiDelete, Me.bbiRefresh, Me.BarButtonItemDelete, Me.BarButtonItemView, Me.BarButtonItemAccept, Me.BarButtonItemReject, Me.BarButtonItemOnProgress, Me.BarButtonItemDone, Me.BarEditItemTaskId, Me.BarEditItemTglRequest1, Me.BarEditItemTglRequest2, Me.BarEditItemSubjek, Me.BarEditItemDariDivisi, Me.BarEditItemStatus, Me.BarButtonItem1, Me.BarEditItemPrioritas, Me.BarButtonItemReset})
         Me.ribbonControl.Location = New System.Drawing.Point(0, 0)
         Me.ribbonControl.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.ribbonControl.MaxItemId = 33
+        Me.ribbonControl.MaxItemId = 35
         Me.ribbonControl.Name = "ribbonControl"
         Me.ribbonControl.OptionsMenuMinWidth = 385
         Me.ribbonControl.Pages.AddRange(New DevExpress.XtraBars.Ribbon.RibbonPage() {Me.ribbonPage1})
-        Me.ribbonControl.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit1, Me.RepositoryItemDateEdit1, Me.RepositoryItemDateEdit2, Me.RepositoryItemTextEdit2, Me.RepositoryItemComboBox1, Me.RepositoryItemComboBox2})
+        Me.ribbonControl.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit1, Me.RepositoryItemDateEdit1, Me.RepositoryItemDateEdit2, Me.RepositoryItemTextEdit2, Me.RepositoryItemComboBox1, Me.RepositoryItemComboBox2, Me.RepositoryItemComboBox3})
         Me.ribbonControl.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2013
         Me.ribbonControl.ShowApplicationButton = DevExpress.Utils.DefaultBoolean.[False]
         Me.ribbonControl.Size = New System.Drawing.Size(1121, 193)
@@ -253,7 +257,7 @@ Partial Public Class XtraFormTask
         'BarEditItemDariDivisi
         '
         Me.BarEditItemDariDivisi.AutoFillWidthInMenu = DevExpress.Utils.DefaultBoolean.[True]
-        Me.BarEditItemDariDivisi.Caption = "Dari Divisi "
+        Me.BarEditItemDariDivisi.Caption = "Dari Divisi     "
         Me.BarEditItemDariDivisi.Edit = Me.RepositoryItemComboBox1
         Me.BarEditItemDariDivisi.EditWidth = 100
         Me.BarEditItemDariDivisi.Id = 30
@@ -289,9 +293,27 @@ Partial Public Class XtraFormTask
         Me.BarButtonItem1.Name = "BarButtonItem1"
         Me.BarButtonItem1.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large
         '
+        'BarEditItemPrioritas
+        '
+        Me.BarEditItemPrioritas.Caption = "Prioritas   "
+        Me.BarEditItemPrioritas.Edit = Me.RepositoryItemDateEdit1
+        Me.BarEditItemPrioritas.EditWidth = 100
+        Me.BarEditItemPrioritas.Id = 33
+        Me.BarEditItemPrioritas.Name = "BarEditItemPrioritas"
+        Me.BarEditItemPrioritas.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large
+        '
+        'BarButtonItemReset
+        '
+        Me.BarButtonItemReset.Caption = "Reset"
+        Me.BarButtonItemReset.Id = 34
+        Me.BarButtonItemReset.ImageOptions.Image = CType(resources.GetObject("BarButtonItemReset.ImageOptions.Image"), System.Drawing.Image)
+        Me.BarButtonItemReset.ImageOptions.LargeImage = CType(resources.GetObject("BarButtonItemReset.ImageOptions.LargeImage"), System.Drawing.Image)
+        Me.BarButtonItemReset.Name = "BarButtonItemReset"
+        Me.BarButtonItemReset.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large
+        '
         'ribbonPage1
         '
-        Me.ribbonPage1.Groups.AddRange(New DevExpress.XtraBars.Ribbon.RibbonPageGroup() {Me.ribbonPageGroup1, Me.ribbonPageGroup2, Me.RibbonPageGroup7, Me.RibbonPageGroup8})
+        Me.ribbonPage1.Groups.AddRange(New DevExpress.XtraBars.Ribbon.RibbonPageGroup() {Me.ribbonPageGroup1, Me.RibbonPageGroup7, Me.RibbonPageGroup8, Me.ribbonPageGroup2})
         Me.ribbonPage1.MergeOrder = 0
         Me.ribbonPage1.Name = "ribbonPage1"
         Me.ribbonPage1.Text = "Home"
@@ -304,14 +326,6 @@ Partial Public Class XtraFormTask
         Me.ribbonPageGroup1.ItemLinks.Add(Me.bbiRefresh)
         Me.ribbonPageGroup1.Name = "ribbonPageGroup1"
         Me.ribbonPageGroup1.Text = "Tasks"
-        '
-        'ribbonPageGroup2
-        '
-        Me.ribbonPageGroup2.AllowTextClipping = False
-        Me.ribbonPageGroup2.CaptionButtonVisible = DevExpress.Utils.DefaultBoolean.[False]
-        Me.ribbonPageGroup2.ItemLinks.Add(Me.bbiPrintPreview)
-        Me.ribbonPageGroup2.Name = "ribbonPageGroup2"
-        Me.ribbonPageGroup2.Text = "Print and Export"
         '
         'RibbonPageGroup7
         '
@@ -326,15 +340,30 @@ Partial Public Class XtraFormTask
         '
         'RibbonPageGroup8
         '
-        Me.RibbonPageGroup8.ItemLinks.Add(Me.BarEditItemTaskId)
         Me.RibbonPageGroup8.ItemLinks.Add(Me.BarEditItemTglRequest1)
         Me.RibbonPageGroup8.ItemLinks.Add(Me.BarEditItemTglRequest2)
-        Me.RibbonPageGroup8.ItemLinks.Add(Me.BarEditItemSubjek)
         Me.RibbonPageGroup8.ItemLinks.Add(Me.BarEditItemDariDivisi)
+        Me.RibbonPageGroup8.ItemLinks.Add(Me.BarEditItemSubjek)
+        Me.RibbonPageGroup8.ItemLinks.Add(Me.BarEditItemPrioritas)
         Me.RibbonPageGroup8.ItemLinks.Add(Me.BarEditItemStatus)
         Me.RibbonPageGroup8.ItemLinks.Add(Me.BarButtonItem1)
+        Me.RibbonPageGroup8.ItemLinks.Add(Me.BarButtonItemReset)
         Me.RibbonPageGroup8.Name = "RibbonPageGroup8"
-        Me.RibbonPageGroup8.Text = "RibbonPageGroup8"
+        Me.RibbonPageGroup8.Text = "Search Data"
+        '
+        'ribbonPageGroup2
+        '
+        Me.ribbonPageGroup2.AllowTextClipping = False
+        Me.ribbonPageGroup2.CaptionButtonVisible = DevExpress.Utils.DefaultBoolean.[False]
+        Me.ribbonPageGroup2.ItemLinks.Add(Me.bbiPrintPreview)
+        Me.ribbonPageGroup2.Name = "ribbonPageGroup2"
+        Me.ribbonPageGroup2.Text = "Print and Export"
+        '
+        'RepositoryItemComboBox3
+        '
+        Me.RepositoryItemComboBox3.AutoHeight = False
+        Me.RepositoryItemComboBox3.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.RepositoryItemComboBox3.Name = "RepositoryItemComboBox3"
         '
         'ribbonStatusBar
         '
@@ -420,6 +449,7 @@ Partial Public Class XtraFormTask
         CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemComboBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemComboBox2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RepositoryItemComboBox3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.gridView, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.gridControl1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
@@ -451,8 +481,6 @@ Partial Public Class XtraFormTask
     Friend WithEvents BarButtonItemOnProgress As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents BarButtonItemDone As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents RibbonPageGroup8 As DevExpress.XtraBars.Ribbon.RibbonPageGroup
-    Private WithEvents gridView As DevExpress.XtraGrid.Views.Grid.GridView
-    Private WithEvents gridControl1 As DevExpress.XtraGrid.GridControl
     Friend WithEvents BarEditItemTaskId As DevExpress.XtraBars.BarEditItem
     Friend WithEvents RepositoryItemTextEdit1 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
     Friend WithEvents BarEditItemTglRequest1 As DevExpress.XtraBars.BarEditItem
@@ -466,4 +494,9 @@ Partial Public Class XtraFormTask
     Friend WithEvents BarEditItemStatus As DevExpress.XtraBars.BarEditItem
     Friend WithEvents RepositoryItemComboBox2 As DevExpress.XtraEditors.Repository.RepositoryItemComboBox
     Friend WithEvents BarButtonItem1 As DevExpress.XtraBars.BarButtonItem
+    Private WithEvents gridView As DevExpress.XtraGrid.Views.Grid.GridView
+    Private WithEvents gridControl1 As DevExpress.XtraGrid.GridControl
+    Friend WithEvents BarEditItemPrioritas As DevExpress.XtraBars.BarEditItem
+    Friend WithEvents RepositoryItemComboBox3 As DevExpress.XtraEditors.Repository.RepositoryItemComboBox
+    Friend WithEvents BarButtonItemReset As DevExpress.XtraBars.BarButtonItem
 End Class
