@@ -22,13 +22,13 @@ Public Class FormAddDivisi
         cek_simpan = 0
         For j = 0 To tString.Length - 1
             If tString.Chars(j) = "'" Then
-                MsgBox("Tidak Boleh Ada Tanda " & "( ' )" & " Pada Nama Divisi", vbOKOnly, "MESSAGE")
+                MessageBox.Show("Tidak Boleh Ada Tanda " & "( ' )" & " Pada Nama Divisi", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 TextBoxNamaDivisi.Focus()
                 cek_simpan = 1
             End If
         Next
         If cek_simpan = 0 And TextBoxNamaDivisi.Text = "" Then
-            MsgBox("Nama Divisi Tidak Boleh Kosong", vbOKOnly, "MESSAGE")
+            MessageBox.Show("Nama Divisi Tidak Boleh Kosong", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             cek_simpan = 1
         End If
         If cek_simpan = 0 Then
@@ -44,7 +44,7 @@ Public Class FormAddDivisi
                     Cmd.Parameters.Add("@dtm_upd", MySqlDbType.DateTime).Value = DateTime.Now
                     Cmd.ExecuteNonQuery()
 
-                    MsgBox("Input Data Berhasil", vbOKOnly, "Success Message")
+                    MessageBox.Show("Input Data Berhasil", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                 Else
                     Call Koneksi()
@@ -56,13 +56,13 @@ Public Class FormAddDivisi
 
                     Cmd.ExecuteNonQuery()
 
-                    MsgBox("Edit Data Berhasil", vbOKOnly, "Success Message")
+                    MessageBox.Show("Edit Data Berhasil", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 End If
                 ' ProgressPanelUtil.HideProgressPanel()
                 'FormMasterDivisi.resetForm()
                 Me.Close()
             Catch ex As Exception
-                MsgBox(ex.Message)
+                MessageBox.Show(ex.Message, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 '  ProgressPanelUtil.HideProgressPanel()
             End Try
         End If

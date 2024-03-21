@@ -59,13 +59,14 @@ Public Class XtraFormEstimasi
                     Await KirimPesanKeOrangLainAsync(botClient, chatIdTujuan, pesan, cts.Token)
                 Loop
             End If
-            MsgBox("Update Status Berhasil", vbOKOnly, "Success Message")
+            MessageBox.Show("Update Status Berhasil", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
             'ProgressPanelUtil.HideProgressPanel()
             resetForm()
             XtraFormTask.refreshData()
             Me.Close()
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             ' ProgressPanelUtil.HideProgressPanel()
         End Try
         'ProgressPanelUtil.HideProgressPanel()
@@ -95,7 +96,7 @@ Public Class XtraFormEstimasi
                 prioritas = Rd.Item("prioritas_name")
             End If
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
         End Try
     End Sub
 End Class

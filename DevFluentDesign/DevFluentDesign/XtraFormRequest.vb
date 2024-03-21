@@ -12,9 +12,10 @@ Partial Public Class XtraFormRequest
     Dim divisiDictionary As New Dictionary(Of Integer, String)()
     Dim statusDictionary As New Dictionary(Of Integer, String)()
     Dim prioritasDictionary As New Dictionary(Of Integer, String)()
-
     Dim Condition As String
 
+    Dim refStatusColor As Color() = {Color.LightYellow, Color.Yellow, Color.Black, Color.Red, Color.LightBlue, Color.Blue, Color.LawnGreen, Color.Green, Color.MediumSlateBlue}
+    Dim refPrioritasColor As Color() = {Color.Red, Color.Blue, Color.Green}
     Public Sub New()
         InitializeComponent()
 
@@ -26,24 +27,24 @@ Partial Public Class XtraFormRequest
     Private Sub bbiPrintPreview_ItemClick(ByVal sender As Object, ByVal e As ItemClickEventArgs) Handles bbiPrintPreview.ItemClick
         gridControl1.ShowRibbonPrintPreview()
     End Sub
-    Public Function GetDataSource() As BindingList(Of Customer)
-        Dim result As New BindingList(Of Customer)()
-        result.Add(New Customer() With {.ID = 1, .Name = "ACME", .Address = "2525 E El Segundo Blvd", .City = "El Segundo", .State = "CA", .ZipCode = "90245", .Phone = "(310) 536-0611"})
-        result.Add(New Customer() With {.ID = 2, .Name = "Electronics Depot", .Address = "2455 Paces Ferry Road NW", .City = "Atlanta", .State = "GA", .ZipCode = "30339", .Phone = "(800) 595-3232"})
-        Return result
-    End Function
-    Public Class Customer
-        <Key, Display(AutoGenerateField:=False)>
-        Public Property ID() As Integer
-        <Required>
-        Public Property Name() As String
-        Public Property Address() As String
-        Public Property City() As String
-        Public Property State() As String
-        <Display(Name:="Zip Code")>
-        Public Property ZipCode() As String
-        Public Property Phone() As String
-    End Class
+    'Public Function GetDataSource() As BindingList(Of Customer)
+    '    Dim result As New BindingList(Of Customer)()
+    '    result.Add(New Customer() With {.ID = 1, .Name = "ACME", .Address = "2525 E El Segundo Blvd", .City = "El Segundo", .State = "CA", .ZipCode = "90245", .Phone = "(310) 536-0611"})
+    '    result.Add(New Customer() With {.ID = 2, .Name = "Electronics Depot", .Address = "2455 Paces Ferry Road NW", .City = "Atlanta", .State = "GA", .ZipCode = "30339", .Phone = "(800) 595-3232"})
+    '    Return result
+    'End Function
+    'Public Class Customer
+    '    <Key, Display(AutoGenerateField:=False)>
+    '    Public Property ID() As Integer
+    '    <Required>
+    '    Public Property Name() As String
+    '    Public Property Address() As String
+    '    Public Property City() As String
+    '    Public Property State() As String
+    '    <Display(Name:="Zip Code")>
+    '    Public Property ZipCode() As String
+    '    Public Property Phone() As String
+    'End Class
 
     Sub refreshData()
         Call Koneksi()
@@ -141,6 +142,7 @@ Partial Public Class XtraFormRequest
         AddHandler View.RowCellStyle, AddressOf View_RowCellStyle
 
         gridControl1.RefreshDataSource()
+        bsiRecordsCount.Caption = "Jumlah Data : " & DirectCast(gridControl1.DataSource, DataTable).Rows.Count.ToString()
     End Sub
 
     Private Sub View_RowCellStyle(sender As Object, e As RowCellStyleEventArgs)
@@ -152,40 +154,43 @@ Partial Public Class XtraFormRequest
             If value IsNot Nothing AndAlso Not Equals(value, System.DBNull.Value) Then
                 Dim statusId As Integer = Convert.ToInt32(value)
 
-                Select Case statusId
-                    Case 1 '
-                        e.Appearance.BackColor = Color.LightYellow
-                    Case 2
-                        e.Appearance.BackColor = Color.Yellow
-                    Case 4
-                        e.Appearance.BackColor = Color.Red
-                    Case 5
-                        e.Appearance.BackColor = Color.LightBlue
-                    Case 6
-                        e.Appearance.BackColor = Color.Blue
-                    Case 7
-                        e.Appearance.BackColor = Color.LawnGreen
-                    Case 8
-                        e.Appearance.BackColor = Color.Green
-                    Case 9
-                        e.Appearance.BackColor = Color.MediumSlateBlue
-                End Select
+                If statusId <= refStatusColor.Length Then e.Appearance.BackColor = refStatusColor(statusId - 1)
+
+                'Select Case statusId
+                '    Case 1 '
+                '        e.Appearance.BackColor = Color.LightYellow
+                '    Case 2
+                '        e.Appearance.BackColor = Color.Yellow
+                '    Case 4
+                '        e.Appearance.BackColor = Color.Red
+                '    Case 5
+                '        e.Appearance.BackColor = Color.LightBlue
+                '    Case 6
+                '        e.Appearance.BackColor = Color.Blue
+                '    Case 7
+                '        e.Appearance.BackColor = Color.LawnGreen
+                '    Case 8
+                '        e.Appearance.BackColor = Color.Green
+                '    Case 9
+                '        e.Appearance.BackColor = Color.MediumSlateBlue
+                'End Select
             End If
-        End If
+            End If
         If e.Column.FieldName = "prioritas_name" AndAlso e.RowHandle >= 0 Then
             Dim value As Object = View.GetRowCellValue(e.RowHandle, "ref_prioritas_id")
 
             If value IsNot Nothing AndAlso Not Equals(value, System.DBNull.Value) Then
                 Dim refPrioritasId As Integer = Convert.ToInt32(value)
+                If refPrioritasId <= refPrioritasColor.Length Then e.Appearance.ForeColor = refPrioritasColor(refPrioritasId - 1)
 
-                Select Case refPrioritasId
-                    Case 1 '
-                        e.Appearance.ForeColor = Color.Red
-                    Case 2
-                        e.Appearance.ForeColor = Color.Blue
-                    Case 3
-                        e.Appearance.ForeColor = Color.Green
-                End Select
+                'Select Case refPrioritasId
+                '    Case 1 '
+                '        e.Appearance.ForeColor = Color.Red
+                '    Case 2
+                '        e.Appearance.ForeColor = Color.Blue
+                '    Case 3
+                '        e.Appearance.ForeColor = Color.Green
+                'End Select
             End If
         End If
     End Sub
@@ -359,7 +364,7 @@ Partial Public Class XtraFormRequest
     End Sub
 
     Private Async Function BarButtonItemApprove_ItemClickAsync(sender As Object, e As ItemClickEventArgs) As Task Handles BarButtonItemApprove.ItemClick
-        Select Case MsgBox("Apakah anda yakin akan mengkonfirmasi request ini ?", MsgBoxStyle.YesNo, "MESSAGE")
+        Select Case MessageBox.Show("Apakah anda yakin akan mengkonfirmasi request ini ?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
             Case MsgBoxResult.Yes
                 Call Koneksi()
                 Cmd = New MySqlCommand("Update request set status=@status, user_upd=@user_upd, dtm_upd=@dtm_upd where request_id = '" & TryCast(gridView.GetRow(gridView.FocusedRowHandle), DataRowView).Row.ItemArray(0) & "'", Conn)
@@ -368,24 +373,7 @@ Partial Public Class XtraFormRequest
                 Cmd.Parameters.Add("@dtm_upd", MySqlDbType.DateTime).Value = DateTime.Now
                 Cmd.ExecuteNonQuery()
 
-                'Call Koneksi()
-                'Cmd = New MySqlCommand("SELECT user_id, divisi_id, chat_id_telegram FROM user where divisi_id = '" & DataGridView1.CurrentRow.Cells(DataGridView1.ColumnCount - 2).Value & "'", Conn)
-                'Rd = Cmd.ExecuteReader
-                ''  Rd.Read()
-                'If Rd.HasRows Then
-                '    Do While Rd.Read
-                '        Dim chatIdTujuan As Long = Rd.Item("chat_id_telegram")
-                '        Dim pesan As String
-                '        pesan = "** TASK DENGAN ID : " & TryCast(gridView.GetRow(gridView.FocusedRowHandle), DataRowView).Row.ItemArray(0) & " TELAH TERKONFIRMASI MENJADI FINISH **" & Environment.NewLine & Environment.NewLine & Environment.NewLine &
-                '                "- Untuk Divisi : " & activeUserData.getDivisionName & Environment.NewLine & Environment.NewLine &
-                '                "- Subject : " & DataGridView1.CurrentRow.Cells(4).Value & Environment.NewLine & Environment.NewLine &
-                '                "- Deskripsi : " & DataGridView1.CurrentRow.Cells(5).Value & Environment.NewLine & Environment.NewLine &
-                '                "- Prioritas : " & DataGridView1.CurrentRow.Cells(7).Value & Environment.NewLine & Environment.NewLine &
-                '                "- User : " & activeUserData.getFullName & Environment.NewLine & Environment.NewLine
-                '        Await KirimPesanKeOrangLainAsync(botClient, chatIdTujuan, pesan, cts.Token)
-                '    Loop
-                'End If
-                MsgBox("Update Status Berhasil", vbOKOnly, "Success Message")
+                MessageBox.Show("Update Status Berhasil", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 refreshData()
         End Select
     End Function
@@ -403,9 +391,10 @@ Partial Public Class XtraFormRequest
             rowValue.Add(gridView.GetRowCellValue(gridView.FocusedRowHandle, col).ToString())
         Next
 
-        Dim f As New FormRequestDetail(TryCast(gridView.GetRow(gridView.FocusedRowHandle), DataRowView).Row.ItemArray(0), rowValue)
-        'f.LabelStatus.BackColor = cellBackColor
-        'f.LabelPriority.ForeColor = TryCast(gridView.GetRow(gridView.FocusedRowHandle), DataRowView).Row.ItemArray(7)
+        Dim datarowSend As DataRow = TryCast(gridView.GetRow(gridView.FocusedRowHandle), DataRowView).Row
+        Dim f As New FormRequestDetail(datarowSend.ItemArray(0), rowValue)
+        f.LabelStatus.BackColor = refStatusColor(CInt(datarowSend("ref_status_id")) - 1)
+        f.LabelPriority.ForeColor = refPrioritasColor(CInt(datarowSend("ref_prioritas_id")) - 1)
         FluentDesignForm1.showForm(f)
     End Sub
     Sub cancelData()
@@ -413,12 +402,12 @@ Partial Public Class XtraFormRequest
         Call Koneksi()
         Cmd = New MySqlCommand("delete from request where request_id = '" & TryCast(gridView.GetRow(gridView.FocusedRowHandle), DataRowView).Row.ItemArray(0) & "'", Conn)
         Cmd.ExecuteNonQuery()
-        MsgBox("Request dengan Subject " & rowView("subject").ToString() & " telah dihapus", vbOKOnly, "Success Message")
+        MessageBox.Show("Request dengan Subject " & rowView("subject").ToString() & " telah dihapus", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
         refreshData()
     End Sub
     Private Sub BarButtonItem4_ItemClick(sender As Object, e As ItemClickEventArgs) Handles BarButtonItem4.ItemClick
         Dim rowView As DataRowView = TryCast(gridView.GetRow(gridView.FocusedRowHandle), DataRowView)
-        Select Case MsgBox("Apakah anda yakin akan MEMBATALKAN request ini " & rowView("subject").ToString() & " ?", MsgBoxStyle.YesNo, "MESSAGE")
+        Select Case MessageBox.Show("Apakah anda yakin akan MEMBATALKAN request ini " & rowView("subject").ToString() & " ?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
             Case MsgBoxResult.Yes
                 Call Koneksi()
                 Cmd = New MySqlCommand("Update request set is_cancel=@is_cancel, user_upd=@user_upd, dtm_upd=@dtm_upd where request_id = '" & TryCast(gridView.GetRow(gridView.FocusedRowHandle), DataRowView).Row.ItemArray(0) & "'", Conn)
@@ -427,8 +416,13 @@ Partial Public Class XtraFormRequest
                 Cmd.Parameters.Add("@dtm_upd", MySqlDbType.DateTime).Value = DateTime.Now
                 Cmd.ExecuteNonQuery()
 
-                MsgBox("Cancel Request Berhasil", vbOKOnly, "Success Message")
+                MessageBox.Show("Cancel Request Berhasil", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 refreshData()
         End Select
+
+    End Sub
+
+    Private Sub bsiRecordsCount_ItemClick(sender As Object, e As ItemClickEventArgs) Handles bsiRecordsCount.ItemClick
+
     End Sub
 End Class

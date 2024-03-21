@@ -82,7 +82,7 @@ Public Class FormRequestDetail
             End If
             GroupBox2.Visible = False
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
         End Try
 
     End Sub

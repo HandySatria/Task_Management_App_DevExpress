@@ -18,6 +18,7 @@ Module Module1
     Public botClient As TelegramBotClient
     Public cts As CancellationTokenSource
 
+
     Public Sub Koneksi()
         Try
             MyDB = "Host=LocalHost;Server=127.0.0.1;User=root;password=;database=task_request;allow user variables=true;Convert Zero Datetime=True"
@@ -25,7 +26,7 @@ Module Module1
             If Conn.State = ConnectionState.Open Then Conn.Close()
             If Conn.State = ConnectionState.Closed Then Conn.Open()
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
         End Try
     End Sub
 
@@ -55,7 +56,7 @@ Module Module1
             Return result
 
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
         End Try
 
 
@@ -480,7 +481,7 @@ Module Module1
             'TextBox2.Invoke(Sub() UpdateTextBox(log))
 
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Dim st As New StackTrace(True)
             st = New StackTrace(ex, True)
             MessageBox.Show("Line: " & st.GetFrame(0).GetFileLineNumber().ToString, "Error")

@@ -107,6 +107,7 @@ Partial Public Class XtraFormUser
         View.Columns("cabang_id").Visible = False
 
         gridControl1.RefreshDataSource()
+        bsiRecordsCount.Caption = "Jumlah Data : " & DirectCast(gridControl1.DataSource, DataTable).Rows.Count.ToString()
     End Sub
 
     Sub resetForm()
@@ -182,12 +183,12 @@ Partial Public Class XtraFormUser
         Cmd = New MySqlCommand("delete from user where user_id = '" & TryCast(gridView.GetRow(gridView.FocusedRowHandle), DataRowView).Row.ItemArray(0) & "'", Conn)
         Cmd.ExecuteNonQuery()
         MsgBox("User " & rowView("fullname").ToString() & " telah dihapus", vbOKOnly, "Success Message")
+        MessageBox.Show("User " & rowView("fullname").ToString() & " telah dihapus", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
         refreshData()
     End Sub
     Private Sub BarButtonItemDelete_ItemClick(sender As Object, e As ItemClickEventArgs) Handles BarButtonItemDelete.ItemClick
         Dim rowView As DataRowView = TryCast(gridView.GetRow(gridView.FocusedRowHandle), DataRowView)
-
-        Select Case MsgBox("Apakah anda yakin ingin menghapus User " & rowView("fullname").ToString() & " ?", MsgBoxStyle.YesNo, "MESSAGE")
+        Select Case MessageBox.Show("Apakah anda yakin ingin menghapus User " & rowView("fullname").ToString() & " ?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
             Case MsgBoxResult.Yes
                 hapusData()
         End Select

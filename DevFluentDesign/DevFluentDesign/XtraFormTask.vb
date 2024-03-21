@@ -10,6 +10,8 @@ Partial Public Class XtraFormTask
     Dim statusDictionary As New Dictionary(Of Integer, String)()
     Dim prioritasDictionary As New Dictionary(Of Integer, String)()
     Dim Condition As String
+    Dim refStatusColor As Color() = {Color.LightYellow, Color.Yellow, Color.Black, Color.Red, Color.LightBlue, Color.Blue, Color.LawnGreen, Color.Green, Color.MediumSlateBlue}
+    Dim refPrioritasColor As Color() = {Color.Red, Color.Blue, Color.Green}
 
     Public Sub New()
         InitializeComponent()
@@ -137,6 +139,7 @@ Partial Public Class XtraFormTask
         AddHandler View.RowCellStyle, AddressOf View_RowCellStyle
 
         gridControl1.RefreshDataSource()
+        bsiRecordsCount.Caption = "Jumlah Data : " & DirectCast(gridControl1.DataSource, DataTable).Rows.Count.ToString()
     End Sub
 
     Private Sub View_RowCellStyle(sender As Object, e As RowCellStyleEventArgs)
@@ -148,24 +151,26 @@ Partial Public Class XtraFormTask
             If value IsNot Nothing AndAlso Not Equals(value, System.DBNull.Value) Then
                 Dim statusId As Integer = Convert.ToInt32(value)
 
-                Select Case statusId
-                    Case 1 '
-                        e.Appearance.BackColor = Color.LightYellow
-                    Case 2
-                        e.Appearance.BackColor = Color.Yellow
-                    Case 4
-                        e.Appearance.BackColor = Color.Red
-                    Case 5
-                        e.Appearance.BackColor = Color.LightBlue
-                    Case 6
-                        e.Appearance.BackColor = Color.Blue
-                    Case 7
-                        e.Appearance.BackColor = Color.LawnGreen
-                    Case 8
-                        e.Appearance.BackColor = Color.Green
-                    Case 9
-                        e.Appearance.BackColor = Color.MediumSlateBlue
-                End Select
+                If statusId <= refStatusColor.Length Then e.Appearance.BackColor = refStatusColor(statusId - 1)
+
+                'Select Case statusId
+                '    Case 1 '
+                '        e.Appearance.BackColor = Color.LightYellow
+                '    Case 2
+                '        e.Appearance.BackColor = Color.Yellow
+                '    Case 4
+                '        e.Appearance.BackColor = Color.Red
+                '    Case 5
+                '        e.Appearance.BackColor = Color.LightBlue
+                '    Case 6
+                '        e.Appearance.BackColor = Color.Blue
+                '    Case 7
+                '        e.Appearance.BackColor = Color.LawnGreen
+                '    Case 8
+                '        e.Appearance.BackColor = Color.Green
+                '    Case 9
+                '        e.Appearance.BackColor = Color.MediumSlateBlue
+                'End Select
             End If
         End If
         If e.Column.FieldName = "prioritas_name" AndAlso e.RowHandle >= 0 Then
@@ -173,15 +178,16 @@ Partial Public Class XtraFormTask
 
             If value IsNot Nothing AndAlso Not Equals(value, System.DBNull.Value) Then
                 Dim refPrioritasId As Integer = Convert.ToInt32(value)
+                If refPrioritasId <= refPrioritasColor.Length Then e.Appearance.ForeColor = refPrioritasColor(refPrioritasId - 1)
 
-                Select Case refPrioritasId
-                    Case 1 '
-                        e.Appearance.ForeColor = Color.Red
-                    Case 2
-                        e.Appearance.ForeColor = Color.Blue
-                    Case 3
-                        e.Appearance.ForeColor = Color.Green
-                End Select
+                'Select Case refPrioritasId
+                '    Case 1 '
+                '        e.Appearance.ForeColor = Color.Red
+                '    Case 2
+                '        e.Appearance.ForeColor = Color.Blue
+                '    Case 3
+                '        e.Appearance.ForeColor = Color.Green
+                'End Select
             End If
         End If
     End Sub
@@ -375,9 +381,10 @@ Partial Public Class XtraFormTask
             rowValue.Add(gridView.GetRowCellValue(gridView.FocusedRowHandle, col).ToString())
         Next
 
+        Dim datarowSend As DataRow = TryCast(gridView.GetRow(gridView.FocusedRowHandle), DataRowView).Row
         Dim f As New FormRequestDetail(TryCast(gridView.GetRow(gridView.FocusedRowHandle), DataRowView).Row.ItemArray(0), rowValue)
-        'f.LabelStatus.BackColor = cellBackColor
-        'f.LabelPriority.ForeColor = TryCast(gridView.GetRow(gridView.FocusedRowHandle), DataRowView).Row.ItemArray(7)
+        f.LabelStatus.BackColor = refStatusColor(CInt(datarowSend("ref_status_id")) - 1)
+        f.LabelPriority.ForeColor = refPrioritasColor(CInt(datarowSend("ref_prioritas_id")) - 1)
         FluentDesignForm1.showForm(f)
     End Sub
 End Class

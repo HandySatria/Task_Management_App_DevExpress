@@ -79,6 +79,7 @@ Partial Public Class XtraFormDivisi
         View.Columns("dtm_upd").Caption = "Dtm Update"
 
         gridControl1.RefreshDataSource()
+        bsiRecordsCount.Caption = "Jumlah Data : " & DirectCast(gridControl1.DataSource, DataTable).Rows.Count.ToString()
     End Sub
 
     Sub resetData()
@@ -130,14 +131,14 @@ Partial Public Class XtraFormDivisi
         Call Koneksi()
         Cmd = New MySqlCommand("delete from divisi where divisi_id = '" & TryCast(gridView.GetRow(gridView.FocusedRowHandle), DataRowView).Row.ItemArray(0) & "'", Conn)
         Cmd.ExecuteNonQuery()
-        MsgBox("Divisi " & rowView("divisi_name").ToString() & " telah dihapus", vbOKOnly, "Success Message")
+        MessageBox.Show("Divisi " & rowView("divisi_name").ToString() & " telah dihapus", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
         refreshData()
     End Sub
 
     Private Sub BarButtonItemDelete_ItemClick(sender As Object, e As ItemClickEventArgs) Handles BarButtonItemDelete.ItemClick
         Dim rowView As DataRowView = TryCast(gridView.GetRow(gridView.FocusedRowHandle), DataRowView)
-
-        Select Case MsgBox("Apakah anda yakin ingin menghapus Divisi " & rowView("divisi_name").ToString() & " ?", MsgBoxStyle.YesNo, "MESSAGE")
+        Select Case MessageBox.Show("Apakah anda yakin ingin menghapus Divisi " & rowView("divisi_name").ToString() & " ?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
             Case MsgBoxResult.Yes
                 hapusData()
         End Select

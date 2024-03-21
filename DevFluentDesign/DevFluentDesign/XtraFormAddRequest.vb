@@ -78,7 +78,7 @@ Public Class XtraFormAddRequest
             tString = TextBoxSubject.Text
             For j = 0 To tString.Length - 1
                 If tString.Chars(j) = "'" Then
-                    MsgBox("Tidak Boleh Ada Tanda " & "( ' )" & " Pada Subjek", vbOKOnly, "MESSAGE")
+                    MessageBox.Show("Tidak Boleh Ada Tanda " & "( ' )" & " Pada Subjek", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                     TextBoxSubject.Focus()
                     cek_simpan = 1
                 End If
@@ -87,7 +87,7 @@ Public Class XtraFormAddRequest
                 tString = TextBoxDeskripsi.Text
                 For j = 0 To tString.Length - 1
                     If tString.Chars(j) = "'" Then
-                        MsgBox("Tidak Boleh Ada Tanda " & "( ' )" & " Pada Deskripsi", vbOKOnly, "MESSAGE")
+                        MessageBox.Show("Tidak Boleh Ada Tanda " & "( ' )" & " Pada Deskripsi", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                         TextBoxDeskripsi.Focus()
                         cek_simpan = 1
                     End If
@@ -95,25 +95,25 @@ Public Class XtraFormAddRequest
             End If
             If cek_simpan = 0 Then
                 If TextBoxSubject.Text = "" Then
-                    MsgBox("Subject Tidak Boleh Kosong", vbOKOnly, "MESSAGE")
+                    MessageBox.Show("Subjek Tidak Boleh Kosong", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                     cek_simpan = 1
                 End If
             End If
             If cek_simpan = 0 Then
                 If TextBoxDeskripsi.Text = "" Then
-                    MsgBox("Deskripsi Tidak Boleh Kosong", vbOKOnly, "MESSAGE")
+                    MessageBox.Show("Deskripsi Tidak Boleh Kosong", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                     cek_simpan = 1
                 End If
             End If
             If cek_simpan = 0 Then
                 If ComboBoxDivisi.SelectedValue = -1 Then
-                    MsgBox("Harap Pilih Divisi", vbOKOnly, "MESSAGE")
+                    MessageBox.Show("Harap Pilih Divisi", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                     cek_simpan = 1
                 End If
             End If
             If cek_simpan = 0 Then
                 If ComboBoxPrioritas.SelectedValue = -1 Then
-                    MsgBox("Harap Pilih Prioritas", vbOKOnly, "MESSAGE")
+                    MessageBox.Show("Harap Pilih Prioritas", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                     cek_simpan = 1
                 End If
             End If
@@ -171,7 +171,7 @@ Public Class XtraFormAddRequest
                             Await KirimPesanKeOrangLainAsync(botClient, chatIdTujuan, pesan, cts.Token)
                         Loop
                     End If
-                    MsgBox("Input Data Berhasil", vbOKOnly, "Success Message")
+                    MessageBox.Show("Input Data Berhasil", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                 Else
                     Call Koneksi()
@@ -202,7 +202,8 @@ Public Class XtraFormAddRequest
                     Cmd.Parameters.Add("@user_upd", MySqlDbType.VarChar).Value = activeUserData.getUserName
                     Cmd.Parameters.Add("@dtm_upd", MySqlDbType.DateTime).Value = DateTime.Now
                     Cmd.ExecuteNonQuery()
-                    MsgBox("Edit Data Berhasil", vbOKOnly, "Success Message")
+                    MessageBox.Show("Edit Data Berhasil", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
                 End If
                 DialogResult = DialogResult.OK
                 'resetForm()
@@ -214,7 +215,8 @@ Public Class XtraFormAddRequest
             ButtonCancel.Enabled = True
         Catch ex As Exception
             'ProgressPanelUtil.HideProgressPanel()
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+
         End Try
     End Sub
 

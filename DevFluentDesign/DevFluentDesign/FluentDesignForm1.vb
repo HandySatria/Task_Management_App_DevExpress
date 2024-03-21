@@ -55,19 +55,19 @@
         showForm(XtraFormDivisi)
     End Sub
 
-    Private Sub BarEditItem3_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles BarEditItem3.ItemClick
-        XtraFormLogin.ShowDialog()
-    End Sub
+    'Private Sub BarEditItem3_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles BarEditItem3.ItemClick
+    '    XtraFormLogin.ShowDialog()
+    'End Sub
 
-    Private Sub BarStaticItemLogin_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles BarStaticItemLogin.ItemClick
-        XtraFormLogin.ShowDialog()
-    End Sub
+    'Private Sub BarStaticItemLogin_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles BarStaticItemLogin.ItemClick
+    '    XtraFormLogin.ShowDialog()
+    'End Sub
 
     Private Sub BarButtonItem3_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles BarButtonItemLogin.ItemClick
         If BarButtonItemLogin.Caption = "LOGIN" Then
             FormLogin.ShowDialog()
         ElseIf BarButtonItemLogin.Caption = "LOGOUT" Then
-            Select Case MsgBox("Apakah Anda Yakin Ingin Logout ?", MsgBoxStyle.YesNo, "MESSAGE")
+            Select Case MessageBox.Show("Apakah Anda Yakin Ingin Logout ?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
                 Case MsgBoxResult.Yes
                     XtraFormRequest.Close()
                     XtraFormTask.Close()

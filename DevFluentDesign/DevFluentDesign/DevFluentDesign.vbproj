@@ -255,12 +255,6 @@
     <Compile Include="XtraFormRequest.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="XtraFormLogin.Designer.vb">
-      <DependentUpon>XtraFormLogin.vb</DependentUpon>
-    </Compile>
-    <Compile Include="XtraFormLogin.vb">
-      <SubType>Form</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Controls\HistoryCard.resx">
@@ -314,9 +308,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="XtraFormTask.resx">
       <DependentUpon>XtraFormTask.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="XtraFormLogin.resx">
-      <DependentUpon>XtraFormLogin.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="XtraFormRequest.resx">
       <DependentUpon>XtraFormRequest.vb</DependentUpon>

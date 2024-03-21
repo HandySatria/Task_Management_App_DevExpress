@@ -18,7 +18,7 @@ Public Class FormLogin
 
     Sub login()
         If TextEditNama.Text = "" Or TextEditPassword.Text = "" Then
-            MsgBox("Silahkan Isi Nama dan Password Terlebih Dahulu")
+            MessageBox.Show("Silahkan Isi Nama dan Password Terlebih Dahulu", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
         Else
             Try
                 Call Enkripsi(TextEditPassword.Text)
@@ -30,7 +30,7 @@ Public Class FormLogin
                 Rd = Cmd.ExecuteReader
                 Rd.Read()
                 If Not Rd.HasRows Then
-                    MsgBox("Username atau Password Salah!")
+                    MessageBox.Show("Username atau Password Salah", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Else
                     'Divisi_Name = Rd.Item("divisi_name")
                     activeUserData = New UserData(CInt(Rd.Item("divisi_id")), Rd.Item("divisi_name"), CInt(Rd.Item("user_id")), Rd.Item("username"), Rd.Item("fullname"), Rd.Item("is_admin"), Rd.Item("nama_cabang"))
@@ -43,7 +43,7 @@ Public Class FormLogin
                     FluentDesignForm1.BarButtonItemLogin.Caption = "LOGOUT"
                 End If
             Catch ex As Exception
-                MsgBox(ex.Message)
+                MessageBox.Show(ex.Message, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             End Try
         End If
     End Sub

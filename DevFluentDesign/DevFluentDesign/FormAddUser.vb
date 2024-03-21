@@ -26,7 +26,7 @@ Public Class FormAddUser
         tString = TextBoxNama.Text
         For j = 0 To tString.Length - 1
             If tString.Chars(j) = "'" Then
-                MsgBox("Tidak Boleh Ada Tanda " & "( ' )" & " Pada Nama Lengkap", vbOKOnly, "MESSAGE")
+                MessageBox.Show("Tidak Boleh Ada Tanda " & "( ' )" & " Pada Nama Lengkap", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 TextBoxNama.Focus()
                 cek_simpan = 1
             End If
@@ -35,7 +35,7 @@ Public Class FormAddUser
             tString = TextBoxUsername.Text
             For j = 0 To tString.Length - 1
                 If tString.Chars(j) = "'" Then
-                    MsgBox("Tidak Boleh Ada Tanda " & "( ' )" & " Pada Username", vbOKOnly, "MESSAGE")
+                    MessageBox.Show("Tidak Boleh Ada Tanda " & "( ' )" & " Pada Username", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                     TextBoxUsername.Focus()
                     cek_simpan = 1
                 End If
@@ -45,7 +45,7 @@ Public Class FormAddUser
             tString = TextBoxPassword.Text
             For j = 0 To tString.Length - 1
                 If tString.Chars(j) = "'" Then
-                    MsgBox("Tidak Boleh Ada Tanda " & "( ' )" & " Pada Password", vbOKOnly, "MESSAGE")
+                    MessageBox.Show("Tidak Boleh Ada Tanda " & "( ' )" & " Pada Password", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                     TextBoxPassword.Focus()
                     cek_simpan = 1
                 End If
@@ -56,7 +56,7 @@ Public Class FormAddUser
             tString = TextBoxIdTelegram.Text
             For j = 0 To tString.Length - 1
                 If tString.Chars(j) = "'" Then
-                    MsgBox("Tidak Boleh Ada Tanda " & "( ' )" & " Pada ID Telegram", vbOKOnly, "MESSAGE")
+                    MessageBox.Show("Tidak Boleh Ada Tanda " & "( ' )" & " Pada ID Telegram", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                     TextBoxNama.Focus()
                     cek_simpan = 1
                 End If
@@ -66,13 +66,13 @@ Public Class FormAddUser
         If cek_simpan = 0 Then
             If TextBoxIdTelegram.Text <> "" Then
                 If IsNumeric(TextBoxIdTelegram.Text) = False Then
-                    MsgBox("Id Telegram Harus Angka", vbOKOnly, "MESSAGE")
+                    MessageBox.Show("ID Telegram Harus Angka", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                     TextBoxIdTelegram.Focus()
                     cek_simpan = 1
                 End If
             Else
                 If TextBoxIdTelegram.Text = "" Then
-                    MsgBox("ID Telegram Tidak Boleh Kosong", vbOKOnly, "MESSAGE")
+                    MessageBox.Show("ID Telegram Tidak Boleh Kosong", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                     cek_simpan = 1
                 End If
             End If
@@ -80,31 +80,31 @@ Public Class FormAddUser
 
         If cek_simpan = 0 Then
             If TextBoxNama.Text = "" Then
-                MsgBox("Nama Lengkap Tidak Boleh Kosong", vbOKOnly, "MESSAGE")
+                MessageBox.Show("Nama Lengkap Tidak Boleh Kosong", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 cek_simpan = 1
             End If
         End If
         If cek_simpan = 0 Then
             If TextBoxUsername.Text = "" Then
-                MsgBox("Username Tidak Boleh Kosong", vbOKOnly, "MESSAGE")
+                MessageBox.Show("Username Tidak Boleh Kosong", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 cek_simpan = 1
             End If
         End If
         If cek_simpan = 0 Then
             If TextBoxPassword.Text = "" Then
-                MsgBox("Password Tidak Boleh Kosong", vbOKOnly, "MESSAGE")
+                MessageBox.Show("Password Tidak Boleh Kosong", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 cek_simpan = 1
             End If
         End If
         If cek_simpan = 0 Then
             If ComboBoxDivisi.SelectedValue = -1 Then
-                MsgBox("Harap Pilih Divisi", vbOKOnly, "MESSAGE")
+                MessageBox.Show("Harap Pilih Divisi", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 cek_simpan = 1
             End If
         End If
         If cek_simpan = 0 Then
             If ComboBoxCabang.SelectedValue = -1 Then
-                MsgBox("Harap Pilih Cabang", vbOKOnly, "MESSAGE")
+                MessageBox.Show("Harap Pilih Cabang", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 cek_simpan = 1
             End If
         End If
@@ -127,7 +127,7 @@ Public Class FormAddUser
                     Cmd.Parameters.Add("@dtm_crt", MySqlDbType.DateTime).Value = DateTime.Now
                     Cmd.Parameters.Add("@dtm_upd", MySqlDbType.DateTime).Value = DateTime.Now
                     Cmd.ExecuteNonQuery()
-                    MsgBox("Input Data Berhasil", vbOKOnly, "Success Message")
+                    MessageBox.Show("Input Data Berhasil", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Else
                     Call Koneksi()
                     Cmd = New MySqlCommand("Update user set username=@username, password=@password, fullname=@fullname, divisi_id=@divisi_id, chat_id_telegram=@chat_id_telegram, is_admin=@is_admin, id_cabang=@id_cabang, user_upd=@user_upd, dtm_upd=@dtm_upd where user_id = '" & id & "'", Conn)
@@ -141,13 +141,13 @@ Public Class FormAddUser
                     Cmd.Parameters.Add("@user_upd", MySqlDbType.VarChar).Value = activeUserData.getUserName
                     Cmd.Parameters.Add("@dtm_upd", MySqlDbType.DateTime).Value = DateTime.Now
                     Cmd.ExecuteNonQuery()
-                    MsgBox("Edit Data Berhasil", vbOKOnly, "Success Message")
+                    MessageBox.Show("Edit Data Berhasil", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 End If
                 resetForm()
                 'FormMasterUser.resetForm()
                 Me.Close()
             Catch ex As Exception
-                MsgBox(ex.Message)
+                MessageBox.Show(ex.Message, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             End Try
         End If
     End Sub
